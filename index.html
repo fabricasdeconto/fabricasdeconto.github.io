@@ -587,7 +587,7 @@ ${L}
 
 *Total: ${brl(total())}*`;
 }
-const linkZap = () => `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(mensagem())}`;
+const linkZap = () => `https://api.whatsapp.com/send?phone=${CONFIG.whatsapp}&text=${encodeURIComponent(mensagem())}`;
 const formataNumero = n => { const d=String(n).replace(/\D/g,""); return d.length>=12 ? `+${d.slice(0,2)} (${d.slice(2,4)}) ${d.slice(4,-4)}-${d.slice(-4)}` : d; };
 
 function enviarPlanilha(status){
