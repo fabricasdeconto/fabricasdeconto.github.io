@@ -8,13 +8,13 @@
 <meta name="color-scheme" content="only light">
 <meta name="theme-color" content="#F4F8F3">
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Livro infantil personalizado com o nome, o rostinho e o jeitinho da criança. Pronto em até 24h no seu WhatsApp.">
+<meta name="description" content="Desenho animado personalizado: a criança vira o herói de um vídeo narrado, com o nome, o rostinho e o jeitinho dela. Pronto em até 24h no seu WhatsApp.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@800&family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap">
 
 <!-- Meta Pixel: Fábrica de Contos - Site (3650201718481567).
-     Eventos: PageView e ViewContent (abriu), Lead (terminou o quiz), AddToCart (escolheu o livro), InitiateCheckout (chegou no resumo), Contact (foi para o WhatsApp). -->
+     Eventos: PageView e ViewContent (abriu), Lead (terminou o quiz), AddToCart (confirmou o desenho), InitiateCheckout (chegou no resumo), Contact (foi para o WhatsApp). -->
 <script>
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
 if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
@@ -81,6 +81,15 @@ button{font:inherit;color:inherit}
 .vitrine{width:100%;margin-block:4px;background:#fff;border-radius:22px;padding:8px;box-shadow:0 10px 28px rgba(30,74,55,.12)}
 .vitrine img{display:block;width:100%;height:auto;border-radius:16px}
 .vitrine figcaption{font-size:12px;color:var(--tinta-2);padding:6px 4px 2px}
+/* Hero: foto -> personagem -> celular tocando o desenho */
+.hero-video{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1fr);gap:8px;align-items:center}
+.hero-video .hv-foto{border-radius:14px}
+.celular{position:relative;background:#14261E;border-radius:28px;padding:9px;box-shadow:0 12px 24px rgba(20,38,30,.3)}
+.celular::before{content:"";position:absolute;top:4px;left:50%;width:34%;height:4px;margin-left:-17%;border-radius:4px;background:#2E4A3D}
+.celular video{display:block;width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:20px;background:#0b1f17}
+.celular .ao-vivo{position:absolute;left:16px;top:18px;background:var(--coral);color:#fff;font-weight:800;font-size:11px;letter-spacing:.4px;padding:4px 8px;border-radius:999px}
+.celular .som-hero{position:absolute;right:16px;bottom:18px;border:0;border-radius:999px;padding:6px 10px;font:inherit;font-weight:800;font-size:12px;background:rgba(255,255,255,.92);color:var(--tinta);cursor:pointer}
+.digital{display:inline-flex;gap:6px;align-items:center;font-weight:800;font-size:14px;color:var(--tinta);background:#EAF8F2;border:2px solid #CBEBDD;border-radius:999px;padding:6px 12px}
 .secao{margin-top:40px;display:grid;gap:16px}
 .secao > h2{text-align:center}
 .passos{display:grid;gap:12px;counter-reset:p}
@@ -189,9 +198,11 @@ textarea.campo{min-height:96px;resize:vertical}
 .previa-leg{font-size:12.5px;color:var(--tinta-2);line-height:1.35}
 .previa-som{margin-top:4px;border:2px solid var(--linha);border-radius:999px;padding:6px 12px;font:inherit;font-weight:800;font-size:13px;background:#fff;color:var(--tinta);cursor:pointer}
 .previa-som[aria-pressed="true"]{background:var(--menta);border-color:var(--menta);color:#fff}
-/* Capa do livro (mockup) */
+/* Abertura do desenho (tela de vídeo) */
 .legenda-capa{font-size:13px;color:var(--tinta-2);text-align:center;margin-top:-6px;text-wrap:balance}
 .livro{position:relative;filter:drop-shadow(0 10px 16px rgba(30,74,55,.25))}
+.livro .play{transform-origin:120px 168px;animation:pulsa 1.6s ease-in-out infinite}
+@keyframes pulsa{50%{transform:scale(1.08)}}
 .livro svg{display:block;width:100%;height:auto}
 
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
@@ -208,16 +219,15 @@ textarea.campo{min-height:96px;resize:vertical}
 const CONFIG = {
   whatsapp: "5511968155528",       // seu número com DDI 55 + DDD, só dígitos
   precos: {
-    digital: 19.90,     // livro digital
-    narrado: 29.90,     // livro + narração em vídeo
-    colorir: 6.90,      // versão para colorir (extra)
-    colorirDown: 3.90,  // versão para colorir (oferta menor, se recusou o 2º livro)
+    video: 19.90,       // desenho animado personalizado (vídeo narrado)
+    colorir: 6.90,      // desenhos para colorir (arquivo para imprimir em casa)
+    colorirDown: 3.90,  // desenhos para colorir (oferta menor, se recusou o 2º desenho)
     prioridade: 3.90,   // entrega em até 6h
     cartao: 2.90,       // cartão de dedicatória digital
     personagem: 5.90,   // cada personagem extra
-    segundo: 9.90      // segundo livro com 50% de desconto
+    segundo: 9.90      // segundo desenho com 50% de desconto
   },
-  precoCheioSegundo: 19.90,  // preço normal do livro, mostrado riscado na oferta do 2º livro
+  precoCheioSegundo: 19.90,  // preço normal do desenho, mostrado riscado na oferta do 2º desenho
   planilhaUrl: ""            // opcional: URL do Google Apps Script para salvar os pedidos
 };
 /* ================================================== */
@@ -250,7 +260,7 @@ const RELACOES = ["Vovó","Vovô","Mamãe","Papai","Tia","Tio","Madrinha","Padri
 const novoEstado = () => ({
   tela:"inicio", nome:"", idade:"", genero:"", tema:"", moral:"", tracos:[], detalhes:"",
   relacao:"", presenteador:"", whats:"", dedicatoria:"",
-  formato:"narrado", colorir:false, prioridade:false, cartao:false,
+  formato:"video", colorir:false, prioridade:false, cartao:false,
   personagens:[], segundo:null, segundoNome:"", colorirDown:null, codigo:""
 });
 let S = novoEstado();
@@ -286,26 +296,28 @@ function capa(tema, nome, genero){
   const linhas=[""]; resto.split(" ").forEach(p=>{ if((linhas[linhas.length-1]+" "+p).trim().length>17 && linhas.length<2) linhas.push(p); else linhas[linhas.length-1]=(linhas[linhas.length-1]+" "+p).trim(); });
   const tamNome = n.length>10 ? 24 : n.length>7 ? 29 : 34;
   const sub = linhas.map((l,i)=>`<tspan x="120" dy="${i?20:0}">${l}</tspan>`).join("");
-  return `<div class="livro"><svg viewBox="0 0 240 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Capa do livro: ${titulo}">
+  return `<div class="livro"><svg viewBox="0 0 240 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Abertura do desenho: ${titulo}">
     <defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${t.c1}"/><stop offset="1" stop-color="${t.c2}"/></linearGradient>
     <linearGradient id="${id}s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity=".5"/><stop offset=".35" stop-color="#000" stop-opacity="0"/></linearGradient>
     <clipPath id="${id}c"><rect width="240" height="300" rx="10"/></clipPath></defs>
     <g clip-path="url(#${id}c)"><rect width="240" height="300" fill="url(#${id})"/><image href="etapas/capa-${chave}-${g}.jpg" x="0" y="0" width="240" height="300" preserveAspectRatio="xMidYMin slice"/><rect width="240" height="300" fill="url(#${id}s)"/></g>
-    <rect x="0" y="0" width="14" height="300" rx="6" fill="#000" opacity=".2"/>
     <text x="120" y="46" text-anchor="middle" font-family="'Baloo 2', Fredoka, 'Trebuchet MS', sans-serif" font-weight="800" font-size="${tamNome}" fill="#D7393B" stroke="#fff" stroke-width="5" stroke-linejoin="round" paint-order="stroke">${n}</text>
     <text x="120" y="70" text-anchor="middle" font-family="Fredoka, 'Trebuchet MS', sans-serif" font-weight="700" font-size="16" fill="#fff" stroke="#1E4A37" stroke-width="3.5" stroke-linejoin="round" paint-order="stroke">${sub}</text>
+    <g class="play"><circle cx="120" cy="168" r="26" fill="#fff" opacity=".92"/><path d="M111 154 L136 168 L111 182Z" fill="#D7393B"/></g>
+    <rect x="14" y="282" width="212" height="5" rx="2.5" fill="#fff" opacity=".45"/><rect x="14" y="282" width="64" height="5" rx="2.5" fill="#D7393B"/>
+    <text x="226" y="274" text-anchor="end" font-family="Nunito, sans-serif" font-weight="800" font-size="11" fill="#fff" stroke="#000" stroke-opacity=".35" stroke-width="2" paint-order="stroke">▶ desenho animado</text>
   </svg></div>`;
 }
 
 const marca = `<div class="marca"><img src="marca/logo-compacto.png" alt="Fábrica de Contos" width="180" height="193"></div>`;
-const marcaGrande = `<div class="marca grande"><img src="marca/logo.png" alt="Fábrica de Contos: livros onde o seu pequeno é o herói" width="360" height="418"></div>`;
+const marcaGrande = `<div class="marca grande"><img src="marca/logo.png" alt="Fábrica de Contos: desenhos animados onde o seu pequeno é o herói" width="360" height="376"></div>`;
 
 /* ============ Fluxo ============ */
 const QUIZ = ["nome","genero","tema","moral","jeito","presente"];
 const OFERTAS = ["formato","extras","personagens","segundo","colorirDown"];
 
 function total(){
-  let t = S.formato==="narrado" ? P.narrado : P.digital;
+  let t = P.video;
   if (S.colorir) t+=P.colorir; if (S.prioridade) t+=P.prioridade; if (S.cartao) t+=P.cartao;
   t += S.personagens.filter(p=>p.nome.trim()).length * P.personagem;
   if (S.segundo) t+=P.segundo; if (S.colorirDown) t+=P.colorirDown;
@@ -313,13 +325,13 @@ function total(){
 }
 function itens(){
   const L = [];
-  L.push([S.formato==="narrado" ? "Livro digital + narração em vídeo" : "Livro digital ilustrado (16 páginas)", S.formato==="narrado"?P.narrado:P.digital]);
-  if (S.colorir) L.push(["Versão para colorir", P.colorir]);
+  L.push(["Desenho animado personalizado (vídeo narrado)", P.video]);
+  if (S.colorir) L.push(["Desenhos para colorir", P.colorir]);
   if (S.prioridade) L.push(["Entrega prioritária (até 6h)", P.prioridade]);
   if (S.cartao) L.push(["Cartão de dedicatória digital", P.cartao]);
   S.personagens.filter(p=>p.nome.trim()).forEach(p=>L.push([`Personagem extra: ${p.nome.trim()}${p.quem?" ("+p.quem.trim()+")":""}`, P.personagem]));
-  if (S.segundo) L.push([`Segundo livro (50% off)${S.segundoNome?": "+S.segundoNome.trim():""}`, P.segundo]);
-  if (S.colorirDown) L.push(["Versão para colorir (oferta especial)", P.colorirDown]);
+  if (S.segundo) L.push([`Segundo desenho (50% off)${S.segundoNome?": "+S.segundoNome.trim():""}`, P.segundo]);
+  if (S.colorirDown) L.push(["Desenhos para colorir (oferta especial)", P.colorirDown]);
   return L;
 }
 
@@ -354,11 +366,22 @@ const TELAS = {
 inicio(){
   return `${marcaGrande}
   <section class="hero">
-    <span class="selo">Livro 100% personalizado</span>
-    <h1>Seu pequeno vira <em>o herói</em> do próprio livro</h1>
-    <p class="sub">Um livro ilustrado com o rostinho, o nome e o jeitinho da criança. Pronto em até 24h, direto no seu WhatsApp.</p>
-    <figure class="vitrine" style="margin:0"><img src="marca/hero.jpg" width="1200" height="900" alt="Foto de um menino, o mesmo menino como personagem ilustrado e o livro Davi e o Mapa do Tesouro"><figcaption>Imagem ilustrativa. Seu livro é feito com a foto da sua criança.</figcaption></figure>
-    <button class="btn" data-ir="nome">Criar o livro agora</button>
+    <span class="selo">Desenho animado 100% personalizado</span>
+    <h1>Seu pequeno vira <em>o herói</em> de um desenho animado</h1>
+    <p class="sub">Um vídeo com a história narrada, com o rostinho, o nome e o jeitinho da criança. Para assistir no celular ou na TV e mandar para a família.</p>
+    <figure class="vitrine" style="margin:0">
+      <div class="hero-video">
+        <img class="hv-foto" src="marca/hero-foto.jpg" width="487" height="860" alt="Foto de um menino e o mesmo menino desenhado como personagem">
+        <div class="celular">
+          <video id="videoHero" src="previa/hero-vertical.mp4" poster="previa/hero-vertical.jpg" muted autoplay loop playsinline preload="metadata"></video>
+          <span class="ao-vivo">▶ VÍDEO</span>
+          <button class="som-hero" data-acao="somHero" aria-pressed="false">🔊 Ouvir</button>
+        </div>
+      </div>
+      <figcaption>Trecho de um desenho de exemplo. O seu é feito com a foto da sua criança.</figcaption>
+    </figure>
+    <span class="digital">📲 É um vídeo digital: chega no WhatsApp, sem frete e sem espera</span>
+    <button class="btn" data-ir="nome">Criar o desenho agora</button>
     <p class="mini">Leva uns 2 minutos. Você só paga no final, pelo WhatsApp.</p>
   </section>
 
@@ -367,7 +390,7 @@ inicio(){
     <div class="passos">
       <div class="passo"><div><h3>Conte sobre a criança</h3><p>Nome, idade, o tema da aventura e o jeitinho dela. Tudo aqui no site.</p></div></div>
       <div class="passo"><div><h3>Finalize pelo WhatsApp</h3><p>Seu pedido chega pronto para nós. Você paga por Pix e manda uma foto da criança.</p></div></div>
-      <div class="passo"><div><h3>Receba o livro em até 24h</h3><p>Em PDF, para ler no celular ou imprimir. A criança aparece em todas as páginas.</p></div></div>
+      <div class="passo"><div><h3>Receba o desenho em até 24h</h3><p>O vídeo chega no seu WhatsApp, pronto para assistir e mandar no grupo da família. A criança aparece em todas as cenas.</p></div></div>
     </div>
   </section>
 
@@ -375,13 +398,14 @@ inicio(){
 
   <section class="secao faq">
     <h2>Dúvidas</h2>
-    <details><summary>O que eu recebo?</summary><p>Um livro digital de 16 páginas em PDF, com capa, história personalizada, ilustrações com a criança e dedicatória com o seu nome.</p></details>
-    <details><summary>Quando envio a foto da criança?</summary><p>Depois de finalizar o pedido no WhatsApp. A foto é usada só para fazer o livro e apagada depois da entrega.</p></details>
+    <details><summary>O que eu recebo?</summary><p>Um desenho animado em vídeo, com a história narrada, a criança como personagem em todas as cenas e uma dedicatória com o seu nome. Ele chega no seu WhatsApp.</p></details>
+    <details><summary>É um livro? Vou receber algo pelo correio?</summary><p>Não. É um vídeo digital, entregue no WhatsApp. Não tem frete nem espera de entrega: dá para assistir no celular, colocar na TV e compartilhar com a família.</p></details>
+    <details><summary>Quando envio a foto da criança?</summary><p>Depois de finalizar o pedido no WhatsApp. A foto é usada só para fazer o desenho e apagada depois da entrega.</p></details>
     <details><summary>Posso dar de presente para neto, sobrinho ou afilhado?</summary><p>Pode. A dedicatória sai com o seu nome, por exemplo “Com amor, Vovó Teresa”.</p></details>
     <details><summary>Como eu pago?</summary><p>Por Pix, direto no WhatsApp, depois de confirmar o resumo do pedido.</p></details>
   </section>
 
-  <div class="secao"><button class="btn" data-ir="nome">Criar o livro agora</button></div>`;
+  <div class="secao"><button class="btn" data-ir="nome">Criar o desenho agora</button></div>`;
 },
 
 nome(){
@@ -436,13 +460,13 @@ jeito(){
 
 presente(){
   return `${topoQuiz("presente")}<section class="tela">
-    <header><h2>Quem está dando esse presente?</h2><p>Seu nome vai na dedicatória do livro.</p></header>
+    <header><h2>Quem está dando esse presente?</h2><p>Seu nome vai na dedicatória do desenho.</p></header>
     <div><span class="rot">Você é</span><div class="grade tres">${RELACOES.map(r=>`<button class="opc" data-campo="relacao" data-v="${r}" aria-pressed="${S.relacao===r}"><b>${r}</b></button>`).join("")}</div></div>
     <div><label class="rot" for="fQuem">Seu nome</label><input class="campo" id="fQuem" maxlength="30" autocomplete="given-name" placeholder="Ex: Teresa" value="${esc(S.presenteador)}"></div>
     <div><label class="rot" for="fZap">Seu WhatsApp</label><input class="campo" id="fZap" type="tel" inputmode="tel" autocomplete="tel" placeholder="(11) 99999-9999" value="${esc(S.whats)}">
-      <p class="dica">É por onde vamos entregar o livro.</p></div>
+      <p class="dica">É por onde vamos entregar o vídeo.</p></div>
     <p class="erro" id="erro"></p>
-    <button class="btn" data-acao="presente">Ver as opções do livro</button>
+    <button class="btn" data-acao="presente">Ver as opções do desenho</button>
     ${voltarBtn("jeito")}
   </section>`;
 },
@@ -450,7 +474,7 @@ presente(){
 carregando(){
   return `${marca}<section class="carregando">
     ${capa(S.tema, S.nome)}
-    <h2>Preparando o livro de <span style="color:var(--coral)">${nomeOu()}</span></h2>
+    <h2>Preparando o desenho de <span style="color:var(--coral)">${nomeOu()}</span></h2>
     <div class="etapas">
       <div class="etapa">Separando a história de ${TEMAS[S.tema]?.nome || "aventura"}<div class="barra"><i></i></div></div>
       <div class="etapa">Encaixando a lição de ${esc(MORAIS.find(m=>m.id===S.moral)?.nome || "vida")}<div class="barra"><i></i></div></div>
@@ -460,32 +484,26 @@ carregando(){
 },
 
 formato(){
-  const pd = S.formato;
   return `${marca}<section class="tela">
-    <header><h2>O livro de <span class="nome">${nomeOu()}</span> está quase pronto</h2><p>Escolha como você quer receber.</p></header>
+    <header><h2>O desenho de <span class="nome">${nomeOu()}</span> está quase pronto</h2><p>Confira o que você vai receber.</p></header>
     <div style="width:min(200px,60%);margin:0 auto">${capa(S.tema,S.nome)}</div>
-    <p class="legenda-capa">Exemplo de capa. No livro de ${nomeOu()}, o personagem é desenhado a partir da foto, com o rostinho de verdade.</p>
-    <button class="oferta formato destaque" data-formato="narrado" aria-pressed="${pd==="narrado"}">
-      <span class="tag">Mais escolhido</span>
-      <h3>Livro digital + narração em vídeo</h3>
-      <ul><li>Livro ilustrado de 16 páginas em PDF</li><li>${esc(S.nome||"A criança")} em todas as ilustrações</li><li>Vídeo com a história narrada, para assistir e mandar para a família</li><li>Dedicatória com o seu nome</li></ul>
-      <div class="preco">${brl(P.narrado)}</div>
-    </button>
+    <p class="legenda-capa">Exemplo da abertura. No desenho de ${nomeOu()}, o personagem é feito a partir da foto, com o rostinho de verdade.</p>
+    <div class="oferta formato destaque">
+      <span class="tag">Desenho animado</span>
+      <h3>O desenho animado de ${nomeOu()}</h3>
+      <ul><li>Vídeo com a história narrada, feita para ${nomeOu()}</li><li>${esc(S.nome||"A criança")} em todas as cenas, com o rostinho ${dele()}</li><li>Dedicatória com o seu nome</li><li>Chega no WhatsApp: é só assistir e mandar para a família</li></ul>
+      <div class="preco">${brl(P.video)}</div>
+    </div>
     <div class="previa-video">
       <div class="previa-quadro">
         <video id="videoPrevia" src="previa/video-narrado-exemplo.mp4" poster="previa/video-narrado-capa.jpg" muted autoplay loop playsinline preload="metadata"></video>
       </div>
       <div class="previa-lado">
-        <p class="previa-tit">Veja um trecho do vídeo narrado</p>
-        <p class="previa-leg">Exemplo do livro do Davi. O de ${nomeOu()} terá o nome e o rostinho ${dele()}.</p>
+        <p class="previa-tit">Veja um trecho de um desenho</p>
+        <p class="previa-leg">Exemplo do desenho do Davi. O de ${nomeOu()} terá o nome e o rostinho ${dele()}.</p>
         <button class="previa-som" data-acao="som" aria-pressed="false">🔊 Ouvir com som</button>
       </div>
     </div>
-    <button class="oferta formato" data-formato="digital" aria-pressed="${pd==="digital"}">
-      <h3>Livro digital</h3>
-      <ul><li>Livro ilustrado de 16 páginas em PDF</li><li>${esc(S.nome||"A criança")} em todas as ilustrações</li><li>Dedicatória com o seu nome</li></ul>
-      <div class="preco">${brl(P.digital)}</div>
-    </button>
     <button class="btn" data-acao="formato">Continuar</button>
     ${voltarBtn("presente")}
   </section>`;
@@ -493,9 +511,9 @@ formato(){
 
 extras(){
   const L = [
-    ["colorir","Versão para colorir","As mesmas cenas do livro em traço, para imprimir e pintar.",P.colorir],
-    ["prioridade","Entrega prioritária","Seu livro fica pronto em até 6h, não 24h.",P.prioridade],
-    ["cartao","Cartão de dedicatória","Um cartão digital com o personagem para enviar junto do presente.",P.cartao]
+    ["colorir","Desenhos para colorir","As cenas do desenho em traço, num arquivo para imprimir em casa e pintar.",P.colorir],
+    ["prioridade","Entrega prioritária","Seu desenho fica pronto em até 6h, não 24h.",P.prioridade],
+    ["cartao","Cartão de dedicatória","Um cartão digital com o personagem para mandar junto com o vídeo.",P.cartao]
   ];
   return `${marca}<section class="tela">
     <header><h2>Quer deixar o presente mais completo?</h2><p>Marque o que quiser adicionar.</p></header>
@@ -508,7 +526,7 @@ extras(){
 personagens(){
   const ps = S.personagens.length ? S.personagens : [];
   return `${marca}<section class="tela">
-    <header><h2>Quem mais pode aparecer na história?</h2><p>Irmão, primo, o pet ou até você mesmo. Cada personagem entra na aventura e nas ilustrações.</p></header>
+    <header><h2>Quem mais pode aparecer na história?</h2><p>Irmão, primo, o pet ou até você mesmo. Cada personagem entra na aventura e aparece no desenho.</p></header>
     <div id="listaP" style="display:grid;gap:10px">
       ${ps.map((p,i)=>`<div class="extra-pessoa"><input class="campo" id="pNome${i}" data-p="${i}" data-k="nome" maxlength="20" placeholder="Nome" value="${esc(p.nome)}"><input class="campo" id="pQuem${i}" data-p="${i}" data-k="quem" maxlength="20" placeholder="Quem é (irmão, pet...)" value="${esc(p.quem)}"></div>`).join("")}
     </div>
@@ -525,11 +543,11 @@ segundo(){
       <div style="width:42%;max-width:150px">${capa(S.tema,S.nome)}</div>
       <div style="width:42%;max-width:150px">${capa(Object.keys(TEMAS).find(k=>k!==S.tema)||"espaco", S.genero==="menina"?"Lucas":"Sofia", S.genero==="menina"?"menino":"menina")}</div>
     </div>
-    <h2>Mais um livro com 50% de desconto</h2>
+    <h2>Mais um desenho com 50% de desconto</h2>
     <p style="color:var(--tinta-2)">Para um irmão, primo ou para ${nomeOu()} ganhar outra aventura. Esse desconto vale só neste pedido.</p>
     <div class="preco"><s>${brl(CONFIG.precoCheioSegundo)}</s>${brl(P.segundo)}</div>
     <div style="width:100%;text-align:left"><label class="rot" for="fSeg">Para quem é? (opcional)</label><input class="campo" id="fSeg" maxlength="24" placeholder="Nome da criança" value="${esc(S.segundoNome)}"></div>
-    <button class="btn" data-sim="segundo">Sim, quero o segundo livro</button>
+    <button class="btn" data-sim="segundo">Sim, quero o segundo desenho</button>
     <button class="btn-sec" data-nao="segundo">Não, obrigado</button>
     <button class="voltar" data-voltar="segundo">← Voltar</button>
   </section>`;
@@ -538,8 +556,8 @@ segundo(){
 colorirDown(){
   return `${marca}<section class="tela unica">
     <svg class="ilus" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="58" fill="#E3F6EE"/><rect x="30" y="28" width="52" height="66" rx="6" fill="#fff" stroke="#1E4A37" stroke-width="4"/><path d="M40 70 q8 -16 16 0 t16 0" stroke="#1E4A37" stroke-width="3" fill="none"/><rect x="74" y="40" width="10" height="46" rx="3" transform="rotate(25 79 63)" fill="#F2665A"/></svg>
-    <h2>Que tal a versão para colorir por ${brl(P.colorirDown)}?</h2>
-    <p style="color:var(--tinta-2)">As cenas do livro de ${nomeOu()} em traço, para imprimir e pintar. Preço especial só agora.</p>
+    <h2>Que tal os desenhos para colorir por ${brl(P.colorirDown)}?</h2>
+    <p style="color:var(--tinta-2)">As cenas do desenho de ${nomeOu()} em traço, num arquivo para imprimir em casa e pintar. Preço especial só agora.</p>
     <button class="btn" data-sim="colorirDown">Sim, quero por ${brl(P.colorirDown)}</button>
     <button class="btn-sec" data-nao="colorirDown">Não, obrigado</button>
     <button class="voltar" data-voltar="colorirDown">← Voltar</button>
@@ -573,7 +591,7 @@ resumo(){
 function mensagem(){
   const tr = S.tracos.length ? S.tracos.join(", ") : "-";
   const L = itens().map(([n,v])=>`• ${n} (${brl(v)})`).join("\n");
-  return `Olá! Quero finalizar meu pedido 📖
+  return `Olá! Quero finalizar o pedido do desenho animado 🎬
 *Pedido #${S.codigo}*
 
 👧 *${S.nome}*, ${S.idade} anos (${S.genero})
@@ -674,13 +692,19 @@ app.addEventListener("click", ev => {
       S.presenteador = q; S.whats = z; S.codigo = S.codigo || ("FC" + Math.floor(1000+Math.random()*9000));
       track("Lead"); enviarPlanilha("quiz completo"); ir("carregando"); return;
     }
+    case "somHero": {
+      const v=document.getElementById("videoHero"); if(!v) return;
+      v.muted=!v.muted; if(!v.muted){ v.currentTime=0; v.play().catch(()=>{}); }
+      b.setAttribute("aria-pressed", String(!v.muted)); b.textContent = v.muted ? "🔊 Ouvir" : "🔇 Mudo";
+      return;
+    }
     case "som": {
       const v=document.getElementById("videoPrevia"); if(!v) return;
       v.muted=!v.muted; if(!v.muted){ v.currentTime=0; v.play().catch(()=>{}); }
       b.setAttribute("aria-pressed", String(!v.muted)); b.textContent = v.muted ? "🔊 Ouvir com som" : "🔇 Tirar o som";
       return;
     }
-    case "formato": track("AddToCart",{value:S.formato==="narrado"?P.narrado:P.digital,currency:"BRL"}); proxOferta("formato"); return;
+    case "formato": track("AddToCart",{value:P.video,currency:"BRL"}); proxOferta("formato"); return;
     case "extras": proxOferta("extras"); return;
     case "addP": S.personagens.push({nome:"",quem:""}); salvar(); render(); const f=document.getElementById("pNome"+(S.personagens.length-1)); if(f) f.focus(); return;
     case "personagens": S.personagens = S.personagens.filter(p=>p.nome.trim()); salvar(); proxOferta("personagens"); return;
