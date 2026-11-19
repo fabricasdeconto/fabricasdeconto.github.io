@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@800&family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap">
 
 <!-- Meta Pixel: Fábrica de Contos - Site (3650201718481567).
-     Eventos: PageView e ViewContent (abriu), Lead (terminou o quiz), AddToCart (escolheu o livro), Contact (foi para o WhatsApp). -->
+     Eventos: PageView e ViewContent (abriu), Lead (terminou o quiz), AddToCart (escolheu o livro), InitiateCheckout (chegou no resumo), Contact (foi para o WhatsApp). -->
 <script>
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
 if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
@@ -225,7 +225,7 @@ const CONFIG = {
 const P = CONFIG.precos;
 const brl = v => v.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const track = (ev, data) => { try { if (window.fbq) window.fbq("track", ev, data || {}); } catch(e){} };
+const track = (ev, data, id) => { try { if (window.fbq) window.fbq("track", ev, data || {}, id ? {eventID: id} : undefined); } catch(e){} };
 
 const TEMAS = {
   safari:  {nome:"Safári na Savana",    titulo:n=>`${n} e o Grande Safári`,             c1:"#E9A93A", c2:"#A0621A", ac:"#FFF1B3"},
@@ -325,6 +325,8 @@ function itens(){
 
 function ir(tela){
   S.tela = tela; salvar(); render(); window.scrollTo({top:0});
+  /* Chegou no resumo: a pessoa ainda está no site, então esse evento sempre chega (serve de termômetro do Contact). */
+  if (tela==="resumo" && S.codigo) track("InitiateCheckout",{value:total(),currency:"BRL",content_name:S.codigo}, S.codigo+"-resumo");
 }
 function proxOferta(atual){
   let i = OFERTAS.indexOf(atual)+1;
@@ -690,7 +692,16 @@ app.addEventListener("click", ev => {
     }
   }
 
-  if (b.id==="btnZap"){ track("Contact",{value:total(),currency:"BRL"}); enviarPlanilha("foi para o whatsapp"); }
+  if (b.id==="btnZap"){
+    /* Nos navegadores do Instagram/Facebook o WhatsApp abre na hora e o evento se perde.
+       Seguramos a navegação ~0,7 s para o Pixel enviar o Contact e só então abrimos o WhatsApp na mesma aba. */
+    ev.preventDefault();
+    const url = b.href;
+    track("Contact",{value:total(),currency:"BRL",content_name:S.codigo}, S.codigo+"-contato");
+    enviarPlanilha("foi para o whatsapp");
+    b.textContent = "Abrindo o WhatsApp...";
+    setTimeout(() => { location.href = url; }, 700);
+  }
 });
 
 function fallbackCopia(txt,b){
