@@ -190,9 +190,14 @@ textarea.campo{min-height:96px;resize:vertical}
 .rodape div{max-width:520px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:12px;font-weight:700}
 .rodape strong{font-family:var(--fonte-titulo);font-size:22px;font-variant-numeric:tabular-nums}
 
-.previa-video{display:grid;grid-template-columns:128px minmax(0,1fr);gap:12px;align-items:center;background:var(--folha);border:2px solid var(--linha);border-radius:18px;padding:10px;margin-top:-4px}
+.previa-video{display:grid;grid-template-columns:96px minmax(0,1fr);gap:12px;align-items:center;background:var(--folha);border:2px solid var(--linha);border-radius:18px;padding:10px;margin-top:-4px}
 .previa-quadro{border-radius:12px;overflow:hidden;border:3px solid var(--sol);background:#0b1f17}
-.previa-quadro video{display:block;width:100%;height:auto;aspect-ratio:1/1;object-fit:cover}
+.previa-quadro video{display:block;width:100%;height:auto;aspect-ratio:9/16;object-fit:cover}
+/* Desenho completo em tela cheia */
+.ver-completo{border:2px solid var(--linha);background:#fff;color:var(--tinta);font:inherit;font-weight:800;font-size:15px;border-radius:999px;padding:10px 18px;cursor:pointer}
+.tela-video{position:fixed;inset:0;z-index:50;background:rgba(10,20,16,.92);display:grid;place-items:center;padding:16px}
+.tela-video video{max-height:86vh;max-width:100%;aspect-ratio:9/16;border-radius:20px;background:#000}
+.tela-video .fechar{position:absolute;top:14px;right:14px;border:0;border-radius:999px;width:44px;height:44px;font-size:22px;font-weight:800;background:#fff;color:var(--tinta);cursor:pointer}
 .previa-lado{display:grid;gap:4px;justify-items:start;min-width:0}
 .previa-tit{font-family:var(--fonte-titulo);font-weight:600;font-size:16px;line-height:1.2}
 .previa-leg{font-size:12.5px;color:var(--tinta-2);line-height:1.35}
@@ -380,6 +385,7 @@ inicio(){
       </div>
       <figcaption>Trecho de um desenho de exemplo. O seu é feito com a foto da sua criança.</figcaption>
     </figure>
+    <button class="ver-completo" data-acao="completo">▶ Assistir o desenho completo (1min30)</button>
     <span class="digital">📲 É um vídeo digital: chega no WhatsApp, sem frete e sem espera</span>
     <button class="btn" data-ir="nome">Criar o desenho agora</button>
     <p class="mini">Leva uns 2 minutos. Você só paga no final, pelo WhatsApp.</p>
@@ -496,12 +502,13 @@ formato(){
     </div>
     <div class="previa-video">
       <div class="previa-quadro">
-        <video id="videoPrevia" src="previa/video-narrado-exemplo.mp4" poster="previa/video-narrado-capa.jpg" muted autoplay loop playsinline preload="metadata"></video>
+        <video id="videoPrevia" src="previa/hero-vertical.mp4" poster="previa/hero-vertical.jpg" muted autoplay loop playsinline preload="metadata"></video>
       </div>
       <div class="previa-lado">
         <p class="previa-tit">Veja um trecho de um desenho</p>
         <p class="previa-leg">Exemplo do desenho do Davi. O de ${nomeOu()} terá o nome e o rostinho ${dele()}.</p>
         <button class="previa-som" data-acao="som" aria-pressed="false">🔊 Ouvir com som</button>
+        <button class="previa-som" data-acao="completo">▶ Ver completo</button>
       </div>
     </div>
     <button class="btn" data-acao="formato">Continuar</button>
@@ -691,6 +698,14 @@ app.addEventListener("click", ev => {
       if (z.length < 10) return erro("Confira o WhatsApp, com DDD.");
       S.presenteador = q; S.whats = z; S.codigo = S.codigo || ("FC" + Math.floor(1000+Math.random()*9000));
       track("Lead"); enviarPlanilha("quiz completo"); ir("carregando"); return;
+    }
+    case "completo": {
+      document.querySelectorAll("video").forEach(v=>v.pause());
+      const t=document.createElement("div"); t.className="tela-video";
+      t.innerHTML='<button class="fechar" aria-label="Fechar">×</button><video src="previa/desenho-completo.mp4" poster="previa/desenho-completo.jpg" controls autoplay playsinline></video>';
+      t.addEventListener("click", e=>{ if(e.target===t || e.target.classList.contains("fechar")) t.remove(); });
+      document.body.appendChild(t); track("ViewContent",{content_name:"desenho completo"});
+      return;
     }
     case "somHero": {
       const v=document.getElementById("videoHero"); if(!v) return;
