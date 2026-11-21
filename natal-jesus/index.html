@@ -46,23 +46,27 @@ p{margin:0}
 button{font:inherit;color:inherit}
 :focus-visible{outline:3px solid var(--ouro);outline-offset:2px;border-radius:12px}
 .marca{display:flex;justify-content:center;padding-bottom:4px}
-.marca img{height:60px;width:auto;display:block}
+.marca img{height:104px;width:auto;display:block;filter:drop-shadow(0 6px 10px rgba(126,31,31,.18))}
 .tela{display:grid;gap:15px;text-align:center;animation:entra .3s ease both}
 @keyframes entra{from{opacity:.001;transform:translateY(8px)}to{opacity:1;transform:none}}
 .selo{justify-self:center;display:inline-flex;gap:6px;align-items:center;background:var(--natal);color:#fff;font-weight:800;font-size:13px;letter-spacing:.4px;text-transform:uppercase;padding:7px 14px;border-radius:999px}
 h1 em,h2 em{font-style:normal;color:var(--natal)}
+h1 .jesus{display:block;margin-top:4px;font-family:"Baloo 2",var(--fonte-titulo);font-weight:800;font-size:clamp(46px,13vw,62px);line-height:1;color:var(--natal);
+  -webkit-text-stroke:0;text-shadow:0 3px 0 #fff,0 0 22px rgba(242,184,59,.75),0 6px 18px rgba(126,31,31,.25)}
+h1 .jesus::before,h1 .jesus::after{content:"✨";font-size:.5em;vertical-align:middle;margin:0 6px}
 .sub{color:var(--tinta-2);font-size:16.5px}
-/* antes e depois */
-.antes-depois{width:100%;max-width:330px;margin-inline:auto;display:grid;grid-template-columns:minmax(0,.78fr) auto minmax(0,1fr);gap:6px;align-items:center;background:#fff;border-radius:22px;padding:10px;box-shadow:0 10px 26px rgba(126,31,31,.13)}
-.ad-item{display:grid;gap:5px;justify-items:center}
-.ad-item img,.ad-item video{display:block;width:100%;height:auto;border-radius:14px;object-fit:cover}
-.ad-item .foto{aspect-ratio:1/1.08;border:3px solid #fff;box-shadow:0 0 0 2px var(--linha)}
-.ad-item .desenho{aspect-ratio:4/5;border:3px solid var(--ouro)}
-.ad-item small{font-weight:800;font-size:12.5px;color:var(--tinta-2);text-transform:uppercase;letter-spacing:.4px}
-.seta{font-size:26px;color:var(--natal);font-weight:800}
-.ad-troca{display:flex;justify-content:center;gap:6px;margin-top:-6px}
-.ad-troca button{border:2px solid var(--linha);background:#fff;border-radius:999px;padding:5px 12px;font-weight:700;font-size:13.5px;cursor:pointer}
-.ad-troca button[aria-pressed="true"]{border-color:var(--natal);background:#FDEDEC}
+/* antes e depois: foto real -> desenho, e ao lado o celular passando os desenhos com Jesus */
+.hero-jesus{width:100%;display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1fr);gap:10px;align-items:center}
+.ad-col{display:grid;gap:4px;justify-items:center;background:#fff;border-radius:20px;padding:8px;box-shadow:0 10px 26px rgba(126,31,31,.13)}
+.ad-col img{display:block;width:100%;height:auto;border-radius:12px;object-fit:cover}
+.ad-col .foto{aspect-ratio:1/1;border:2px solid var(--linha)}
+.ad-col .desenho{aspect-ratio:1/1;border:3px solid var(--ouro)}
+.ad-col small{font-weight:800;font-size:12px;color:var(--tinta-2);text-transform:uppercase;letter-spacing:.4px}
+.seta{font-size:22px;color:var(--natal);font-weight:800;line-height:1}
+.celular{position:relative;background:#111;border-radius:30px;padding:8px;box-shadow:0 14px 30px rgba(0,0,0,.28)}
+.celular::before{content:"";position:absolute;top:13px;left:50%;transform:translateX(-50%);width:34%;height:9px;border-radius:9px;background:#111;z-index:2}
+.celular video{display:block;width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:23px;background:#0b1f3a}
+.celular .tag{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);white-space:nowrap;background:rgba(255,255,255,.94);color:var(--natal);font-weight:800;font-size:12px;padding:5px 10px;border-radius:999px}
 /* formulário */
 .cartao{background:var(--folha);border:2px solid var(--linha);border-radius:20px;padding:16px;display:grid;gap:14px;text-align:left}
 .rot{font-size:13px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;display:block;margin-bottom:6px}
@@ -131,7 +135,7 @@ try { const s = JSON.parse(localStorage.getItem("fc_natal_jesus")||"null"); if (
 const salvar = () => { try { localStorage.setItem("fc_natal_jesus", JSON.stringify(S)); } catch(e){} };
 const dele = () => S.genero === "menina" ? "dela" : "dele";
 const nome = () => esc(S.nome || "Seu pequeno");
-const marca = `<div class="marca"><img src="../marca/logo-compacto.png" alt="Fábrica de Contos" width="180" height="193"></div>`;
+const marca = `<div class="marca"><img src="../marca/logo.png" alt="Fábrica de Contos" width="360" height="376"></div>`;
 const diasNatal = () => { const h = new Date(); let n = new Date(h.getFullYear(), 11, 25); if (h > n) n = new Date(h.getFullYear()+1, 11, 25); return Math.ceil((n - h) / 86400000); };
 const dedicatoria = () => S.quem ? `Com amor, ${S.quem}${S.quemNome.trim() ? " " + S.quemNome.trim() : ""}` : "";
 
@@ -155,13 +159,18 @@ function capa(){
 }
 
 function antesDepois(){
-  const e = EXEMPLOS[S.exemplo];
-  return `<div class="antes-depois">
-      <div class="ad-item"><img class="foto" src="${e.foto}" alt="Foto de exemplo: ${e.nome}" width="400" height="430"><small>A foto</small></div>
-      <span class="seta" aria-hidden="true">➜</span>
-      <div class="ad-item">${e.video ? `<video class="desenho" src="${e.video}" poster="${e.desenho}" muted autoplay loop playsinline preload="metadata"></video>` : `<img class="desenho" src="${e.desenho}" alt="Desenho de exemplo com Jesus" width="720" height="900">`}<small>O desenho com Jesus</small></div>
-    </div>
-    <div class="ad-troca">${Object.entries(EXEMPLOS).map(([k,x]) => `<button data-ex="${k}" aria-pressed="${S.exemplo===k}">Ver ${x.nome}</button>`).join("")}</div>`;
+  const e = EXEMPLOS.menina;
+  return `<div class="hero-jesus">
+      <div class="ad-col">
+        <img class="foto" src="${e.foto}" alt="Foto real de exemplo: ${e.nome}" width="400" height="400"><small>A foto</small>
+        <span class="seta" aria-hidden="true">⬇</span>
+        <img class="desenho" src="${e.desenho}" alt="${e.nome} no desenho com Jesus" width="400" height="400"><small>Vira desenho</small>
+      </div>
+      <div class="celular">
+        <video src="exemplo-jesus.mp4" poster="exemplo-jesus.jpg" muted autoplay loop playsinline preload="metadata" aria-label="Trecho do desenho animado com Jesus"></video>
+        <span class="tag">▶ com Jesus</span>
+      </div>
+    </div>`;
 }
 
 function mensagemZap(){
@@ -176,7 +185,7 @@ const TELAS = {
 inicio(){
   return `${marca}<section class="tela">
     <span class="selo">✨ Faltam ${diasNatal()} dias para o Natal</span>
-    <h1>Seu filho ou seu neto num <em>desenho animado de Natal com Jesus</em></h1>
+    <h1>Seu filho ou seu neto num desenho animado de Natal <span class="jesus">com Jesus</span></h1>
     <div id="ad">${antesDepois()}</div>
     <div class="cartao">
       <div><label class="rot" for="fNome">Nome da criança</label>
@@ -241,17 +250,9 @@ function atualizaCapa(){
   const z = document.getElementById("btnZap"); if (z) z.href = linkZap();
 }
 
-/* troca o exemplo do antes/depois sozinho a cada 6 s, enquanto a pessoa está no topo */
-setInterval(() => {
-  if (S.tela !== "inicio" || document.activeElement?.id === "fNome") return;
-  S.exemplo = S.exemplo === "menino" ? "menina" : "menino";
-  const ad = document.getElementById("ad"); if (ad) ad.innerHTML = antesDepois();
-}, 6000);
-
 document.addEventListener("click", (ev) => {
   const b = ev.target.closest("button, a"); if (!b) return;
-  if (b.dataset.ex){ S.exemplo = b.dataset.ex; document.getElementById("ad").innerHTML = antesDepois(); return; }
-  if (b.dataset.g){ S.genero = b.dataset.g; S.exemplo = b.dataset.g; salvar(); document.querySelectorAll("[data-g]").forEach(x => x.setAttribute("aria-pressed", x === b)); document.getElementById("ad").innerHTML = antesDepois(); return; }
+    if (b.dataset.g){ S.genero = b.dataset.g; S.exemplo = b.dataset.g; salvar(); document.querySelectorAll("[data-g]").forEach(x => x.setAttribute("aria-pressed", x === b)); return; }
   if (b.dataset.quem){
     S.quem = S.quem === b.dataset.quem ? "" : b.dataset.quem; salvar();
     render(); const q = document.getElementById("fQuem"); if (q) q.focus();
