@@ -124,8 +124,8 @@ const CONFIG = {
 };
 /* exemplos do antes e depois (foto real de exemplo → desenho com Jesus) */
 const EXEMPLOS = {
-  menino: {nome:"Davi",  foto:"exemplo-davi-foto.jpg",  desenho:"exemplo-davi-desenho.jpg",  video:""},
-  menina: {nome:"Alice", foto:"exemplo-alice-foto.jpg", desenho:"exemplo-alice-desenho.jpg", video:""}
+  menino: {nome:"Davi",  foto:"exemplo-davi-foto.jpg",  desenho:"exemplo-davi-desenho.jpg",  video:"exemplo-jesus-davi.mp4", poster:"exemplo-jesus-davi.jpg"},
+  menina: {nome:"Alice", foto:"exemplo-alice-foto.jpg", desenho:"exemplo-alice-desenho.jpg", video:"exemplo-jesus.mp4", poster:"exemplo-jesus.jpg"}
 };
 /* ===================================== */
 
@@ -133,7 +133,9 @@ const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt
 const track = (ev, data, id) => { try { if (window.fbq) window.fbq("track", ev, data || {}, id ? {eventID:id} : undefined); } catch(e){} };
 const QUEM = ["Vovó","Vovô","Mamãe","Papai","Titia","Madrinha"];
 
-const novo = () => ({tela:"inicio", nome:"", genero:"", quem:"", quemNome:"", codigo:"", exemplo:"menino"});
+const novo = () => ({tela:"inicio", nome:"", genero:"", quem:"", quemNome:"", codigo:"", exemplo:"menina"});
+/* exemplo do gênero escolhido; sem vídeo do menino ainda, usa o da menina */
+const ex = g => { const e = EXEMPLOS[g] || EXEMPLOS.menina; return e.video ? e : EXEMPLOS.menina; };
 let S = novo();
 try { const s = JSON.parse(localStorage.getItem("fc_natal_jesus")||"null"); if (s) S = Object.assign(novo(), s); } catch(e){}
 const salvar = () => { try { localStorage.setItem("fc_natal_jesus", JSON.stringify(S)); } catch(e){} };
@@ -147,13 +149,13 @@ const dedicatoria = () => S.quem ? `Com amor, ${S.quem}${S.quemNome.trim() ? " "
 function capa(){
   const n = nome();
   return `<div class="celular capa-cel">
-      <video src="exemplo-jesus.mp4" poster="exemplo-jesus.jpg" muted autoplay loop playsinline preload="metadata" aria-label="Trecho do desenho animado com Jesus"></video>
+      <video src="${ex(S.genero).video}" poster="${ex(S.genero).poster}" muted autoplay loop playsinline preload="metadata" aria-label="Trecho do desenho animado com Jesus"></video>
       <div class="titulo-cel"><b>${n}</b><span>e o Natal com Jesus</span></div>
     </div>`;
 }
 
 function antesDepois(){
-  const e = EXEMPLOS.menina;
+  const e = ex(S.exemplo);
   return `<div class="hero-jesus">
       <div class="ad-col">
         <img class="foto" src="${e.foto}" alt="Foto real de exemplo: ${e.nome}" width="400" height="400"><small>A foto</small>
@@ -161,7 +163,7 @@ function antesDepois(){
         <img class="desenho" src="${e.desenho}" alt="${e.nome} no desenho com Jesus" width="400" height="400"><small>Vira desenho</small>
       </div>
       <div class="celular">
-        <video src="exemplo-jesus.mp4" poster="exemplo-jesus.jpg" muted autoplay loop playsinline preload="metadata" aria-label="Trecho do desenho animado com Jesus"></video>
+        <video src="${e.video}" poster="${e.poster}" muted autoplay loop playsinline preload="metadata" aria-label="Trecho do desenho animado com Jesus"></video>
         <span class="tag">▶ com Jesus</span>
       </div>
     </div>`;
@@ -241,7 +243,7 @@ function atualizaCapa(){
 
 document.addEventListener("click", (ev) => {
   const b = ev.target.closest("button, a"); if (!b) return;
-    if (b.dataset.g){ S.genero = b.dataset.g; S.exemplo = b.dataset.g; salvar(); document.querySelectorAll("[data-g]").forEach(x => x.setAttribute("aria-pressed", x === b)); return; }
+    if (b.dataset.g){ S.genero = b.dataset.g; S.exemplo = b.dataset.g; salvar(); document.querySelectorAll("[data-g]").forEach(x => x.setAttribute("aria-pressed", x === b)); document.getElementById("ad").innerHTML = antesDepois(); return; }
   if (b.dataset.quem){
     S.quem = S.quem === b.dataset.quem ? "" : b.dataset.quem; salvar();
     render(); const q = document.getElementById("fQuem"); if (q) q.focus();
