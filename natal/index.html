@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Desenho de Natal · Fábrica de Contos</title>
-<meta name="description" content="Seu filho vira um desenho animado de Natal, com o rostinho e o nome dele. Monte a história, veja a prévia grátis no WhatsApp e só pague se gostar.">
+<meta name="description" content="Seu filho ou seu neto vira um desenho animado de Natal com o Papai Noel, com o rostinho e o nome dele. Veja a prévia grátis no WhatsApp e só pague se gostar.">
 <meta name="color-scheme" content="only light">
 <meta name="theme-color" content="#7E1F1F">
 <link rel="icon" href="../marca/logo-compacto.png">
@@ -13,8 +13,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@800&family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap">
 
 <!-- Meta Pixel: Fábrica de Contos - Site (3650201718481567).
-     Funil de Natal: PageView + ViewContent (abriu), Lead (viu a prévia com o nome),
-     InitiateCheckout (chegou no resumo do pedido), Contact (foi para o WhatsApp). -->
+     Funil de Natal: PageView + ViewContent (abriu), Lead (viu a prévia com o nome), Contact (foi para o WhatsApp). -->
 <script>
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
 if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
@@ -26,9 +25,8 @@ fbq('track','ViewContent',{content_name:'natal'});
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=3650201718481567&ev=PageView&noscript=1"></noscript>
 
 <style>
-/* Uma coluna estreita tipo app.
-   Telas: inicio (nome + menino/menina) → aventura → familia → presente → resumo (WhatsApp).
-   A capa de prévia acompanha todas as telas e muda a cada escolha. */
+/* Duas telas: (1) antes/depois + nome e menino/menina, (2) prévia da capa com o Papai Noel + dedicatória opcional + WhatsApp.
+   A história é sempre a criança e o Papai Noel (sem personagens extras). */
 :root{
   --tinta:#1E4A37; --tinta-2:#4F6D60; --papel:#FBF6EE; --folha:#FFFFFF; --linha:#EADFD0;
   --natal:#B3262A; --natal-escuro:#7E1F1F; --ouro:#F2B83B; --zap:#25B05A; --zap-escuro:#1B8B46;
@@ -40,20 +38,32 @@ fbq('track','ViewContent',{content_name:'natal'});
 html{background:var(--papel)}
 body{margin:0;background:var(--papel);color:var(--tinta);font-family:var(--fonte-texto);font-size:16px;line-height:1.5;
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-.wrap{max-width:480px;margin:0 auto;padding-block:14px 48px}
+.wrap{max-width:480px;margin:0 auto;padding-block:12px 48px}
 h1,h2{font-family:var(--fonte-titulo);line-height:1.12;text-wrap:balance;margin:0}
-h1{font-size:clamp(28px,7.4vw,38px);font-weight:700}
+h1{font-size:clamp(27px,7.2vw,36px);font-weight:700}
 h2{font-size:clamp(22px,5.8vw,27px);font-weight:600}
 p{margin:0}
 button{font:inherit;color:inherit}
 :focus-visible{outline:3px solid var(--ouro);outline-offset:2px;border-radius:12px}
-.marca{display:flex;justify-content:center;padding-bottom:6px}
-.marca img{height:64px;width:auto;display:block}
-.tela{display:grid;gap:16px;text-align:center;animation:entra .35s ease both}
+.marca{display:flex;justify-content:center;padding-bottom:4px}
+.marca img{height:60px;width:auto;display:block}
+.tela{display:grid;gap:15px;text-align:center;animation:entra .3s ease both}
 @keyframes entra{from{opacity:.001;transform:translateY(8px)}to{opacity:1;transform:none}}
 .selo{justify-self:center;display:inline-flex;gap:6px;align-items:center;background:var(--natal);color:#fff;font-weight:800;font-size:13px;letter-spacing:.4px;text-transform:uppercase;padding:7px 14px;border-radius:999px}
 h1 em,h2 em{font-style:normal;color:var(--natal)}
-.sub{color:var(--tinta-2);font-size:17px}
+.sub{color:var(--tinta-2);font-size:16.5px}
+/* antes e depois */
+.antes-depois{width:100%;max-width:330px;margin-inline:auto;display:grid;grid-template-columns:minmax(0,.78fr) auto minmax(0,1fr);gap:6px;align-items:center;background:#fff;border-radius:22px;padding:10px;box-shadow:0 10px 26px rgba(126,31,31,.13)}
+.ad-item{display:grid;gap:5px;justify-items:center}
+.ad-item img,.ad-item video{display:block;width:100%;height:auto;border-radius:14px;object-fit:cover}
+.ad-item .foto{aspect-ratio:1/1.08;border:3px solid #fff;box-shadow:0 0 0 2px var(--linha)}
+.ad-item .desenho{aspect-ratio:4/5;border:3px solid var(--ouro)}
+.ad-item small{font-weight:800;font-size:12.5px;color:var(--tinta-2);text-transform:uppercase;letter-spacing:.4px}
+.seta{font-size:26px;color:var(--natal);font-weight:800}
+.ad-troca{display:flex;justify-content:center;gap:6px;margin-top:-6px}
+.ad-troca button{border:2px solid var(--linha);background:#fff;border-radius:999px;padding:5px 12px;font-weight:700;font-size:13.5px;cursor:pointer}
+.ad-troca button[aria-pressed="true"]{border-color:var(--natal);background:#FDEDEC}
+/* formulário */
 .cartao{background:var(--folha);border:2px solid var(--linha);border-radius:20px;padding:16px;display:grid;gap:14px;text-align:left}
 .rot{font-size:13px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;display:block;margin-bottom:6px}
 .opcional{font-weight:600;text-transform:none;letter-spacing:0;color:var(--tinta-2)}
@@ -63,7 +73,7 @@ h1 em,h2 em{font-style:normal;color:var(--natal)}
 .opc{border:2px solid var(--linha);background:#fff;border-radius:14px;padding:13px 10px;cursor:pointer;font-weight:800;font-size:16px}
 .opc[aria-pressed="true"]{border-color:var(--natal);background:#FDEDEC;box-shadow:inset 0 0 0 1px var(--natal)}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{border:2px solid var(--linha);background:#fff;border-radius:999px;padding:8px 13px;cursor:pointer;font-weight:700;font-size:15px}
+.chip{border:2px solid var(--linha);background:#fff;border-radius:999px;padding:7px 12px;cursor:pointer;font-weight:700;font-size:14.5px}
 .chip[aria-pressed="true"]{border-color:var(--natal);background:#FDEDEC}
 .erro{color:var(--natal);font-weight:700;font-size:14px;min-height:1.2em;text-align:center}
 .btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;border:0;border-radius:16px;padding:17px 18px;
@@ -74,51 +84,19 @@ h1 em,h2 em{font-style:normal;color:var(--natal)}
 .btn.zap:active{box-shadow:0 2px 0 var(--zap-escuro)}
 .btn-sec{background:none;border:0;color:var(--tinta-2);font-weight:700;cursor:pointer;padding:6px;font-size:15px;text-decoration:underline;text-underline-offset:3px}
 .mini{font-size:14px;color:var(--tinta-2)}
-/* progresso */
-.topo{display:grid;gap:6px}
-.barra{height:9px;background:var(--linha);border-radius:99px;overflow:hidden}
-.barra i{display:block;height:100%;background:var(--natal);border-radius:99px;transition:width .35s}
-.passo-n{font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--tinta-2)}
-/* vitrine */
-.vitrine{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);gap:10px;align-items:center;background:#fff;border-radius:22px;padding:10px;box-shadow:0 10px 26px rgba(126,31,31,.12)}
-.vitrine img{display:block;width:100%;height:auto;border-radius:14px}
-.celular{position:relative;background:#1d1414;border-radius:24px;padding:7px}
-.celular video{display:block;width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:18px;background:#000}
-.celular span{position:absolute;left:13px;top:14px;background:var(--natal);color:#fff;font-weight:800;font-size:10px;padding:3px 7px;border-radius:999px}
-.leg{font-size:12px;color:var(--tinta-2);margin-top:-8px}
 .confia{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
 .confia div{background:#fff;border:1px solid var(--linha);border-radius:14px;padding:10px 6px;font-size:12.5px;font-weight:700;color:var(--tinta-2);line-height:1.3}
 .confia b{display:block;font-size:20px}
 /* capa de prévia */
 .capa{position:relative;width:min(280px,76%);justify-self:center;filter:drop-shadow(0 12px 18px rgba(126,31,31,.28))}
-.capa.pequena{width:min(190px,52%)}
 .capa svg{display:block;width:100%;height:auto}
 .capa .play{transform-origin:206px 252px;animation:pulsa 1.6s ease-in-out infinite}
 @keyframes pulsa{50%{transform:scale(1.08)}}
 .aviso-ex{font-size:13px;color:var(--tinta-2);margin-top:-6px}
-/* aventuras */
-.aventuras{display:grid;gap:10px}
-.aventura{border:3px solid var(--linha);background:#fff;border-radius:18px;padding:0;overflow:hidden;cursor:pointer;display:grid;grid-template-columns:42% 1fr;align-items:center;text-align:left}
-.aventura img{display:block;width:100%;height:100%;aspect-ratio:4/3;object-fit:cover}
-.aventura span{padding:10px 12px;display:grid;gap:2px}
-.aventura b{font-size:16px;line-height:1.2}
-.aventura small{font-size:13px;color:var(--tinta-2);line-height:1.3}
-.aventura[aria-pressed="true"]{border-color:var(--natal);box-shadow:0 0 0 2px var(--natal)}
-/* familia */
-.pessoa{display:grid;grid-template-columns:auto 1fr;gap:8px;align-items:center}
-.pessoa b{font-size:14px;min-width:64px}
-.pessoa .campo{padding:10px 12px;font-size:16px}
-/* resumo */
-.recibo{background:#fff;border:2px dashed var(--linha);border-radius:18px;padding:14px 16px;display:grid;gap:6px;text-align:left;font-size:15px}
-.recibo .cod{font-size:12px;font-weight:800;letter-spacing:1px;color:var(--tinta-2);text-transform:uppercase}
-.recibo div{display:flex;justify-content:space-between;gap:10px}
-.recibo dt{color:var(--tinta-2)}
-.recibo dd{margin:0;font-weight:700;text-align:right}
-.recibo dl{margin:0;display:grid;gap:4px}
-.preco{font-family:var(--fonte-titulo);font-weight:700;color:var(--natal);font-size:22px}
 .passos{display:grid;gap:8px;text-align:left;counter-reset:p;margin:0;padding:0}
 .passos li{list-style:none;display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:center;background:#fff;border:1px solid var(--linha);border-radius:14px;padding:9px 12px;font-size:14.5px}
 .passos li::before{counter-increment:p;content:counter(p);display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--ouro);font-family:var(--fonte-titulo);font-weight:700}
+.preco{font-family:var(--fonte-titulo);font-weight:700;color:var(--natal)}
 .faq{display:grid;gap:8px;text-align:left}
 .faq details{background:#fff;border:1px solid var(--linha);border-radius:14px;padding:12px 14px}
 .faq summary{font-weight:800;cursor:pointer}
@@ -136,64 +114,58 @@ const CONFIG = {
   preco: "R$ 19,90",
   valor: 19.90
 };
+/* exemplos do antes e depois (foto real de exemplo → desenho com o Papai Noel) */
+const EXEMPLOS = {
+  menino: {nome:"Davi",  foto:"exemplo-davi-foto.jpg",  desenho:"exemplo-davi-desenho.jpg",  video:"exemplo-davi.mp4"},
+  menina: {nome:"Alice", foto:"exemplo-alice-foto.jpg", desenho:"exemplo-alice-desenho.jpg", video:"exemplo-alice.mp4"}
+};
 /* ===================================== */
 
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const track = (ev, data, id) => { try { if (window.fbq) window.fbq("track", ev, data || {}, id ? {eventID:id} : undefined); } catch(e){} };
+const QUEM = ["Vovó","Vovô","Mamãe","Papai","Titia","Madrinha"];
 
-const AVENTURAS = {
-  noel:    {nome:"Ajudando o Papai Noel",  desc:"Na oficina, embrulhando os presentes do mundo todo", titulo:"e o Presente do Papai Noel", img:"aventura-noel.jpg"},
-  treno:   {nome:"O Trenó Mágico",         desc:"Voando com as renas pelo céu estrelado",            titulo:"e o Trenó Mágico",           img:"aventura-treno.jpg"},
-  fabrica: {nome:"A Fábrica de Brinquedos",desc:"No Polo Norte, com os duendes e os brinquedos",     titulo:"e a Fábrica de Brinquedos",  img:"aventura-fabrica.jpg"}
-};
-const FAMILIA = ["Mamãe","Papai","Irmão","Irmã","Vovó","Vovô","Pet"];
-const QUEM = ["Vovó","Vovô","Mamãe","Papai","Titia","Titio","Madrinha","Padrinho"];
-const PASSOS = ["aventura","familia","presente","resumo"];
-
-const novo = () => ({tela:"inicio", nome:"", genero:"", aventura:"", familia:{}, quem:"", quemNome:"", codigo:""});
+const novo = () => ({tela:"inicio", nome:"", genero:"", quem:"", quemNome:"", codigo:"", exemplo:"menino"});
 let S = novo();
-try { const s = JSON.parse(localStorage.getItem("fc_natal2")||"null"); if (s) S = Object.assign(novo(), s); } catch(e){}
-const salvar = () => { try { localStorage.setItem("fc_natal2", JSON.stringify(S)); } catch(e){} };
+try { const s = JSON.parse(localStorage.getItem("fc_natal3")||"null"); if (s) S = Object.assign(novo(), s); } catch(e){}
+const salvar = () => { try { localStorage.setItem("fc_natal3", JSON.stringify(S)); } catch(e){} };
 const dele = () => S.genero === "menina" ? "dela" : "dele";
-const ele = () => S.genero === "menina" ? "ela" : "ele";
 const nome = () => esc(S.nome || "Seu pequeno");
 const marca = `<div class="marca"><img src="../marca/logo-compacto.png" alt="Fábrica de Contos" width="180" height="193"></div>`;
-
 const diasNatal = () => { const h = new Date(); let n = new Date(h.getFullYear(), 11, 25); if (h > n) n = new Date(h.getFullYear()+1, 11, 25); return Math.ceil((n - h) / 86400000); };
-const titulo = () => S.aventura ? AVENTURAS[S.aventura].titulo : "e a Magia do Natal";
 const dedicatoria = () => S.quem ? `Com amor, ${S.quem}${S.quemNome.trim() ? " " + S.quemNome.trim() : ""}` : "";
 
-/* capa com o nome no título e (no fim) a dedicatória; a imagem por baixo é de exemplo */
-function capa(pequena){
-  const n = nome(); const g = S.genero === "menina" ? "menina" : "menino";
+/* capa com o nome no título; a imagem por baixo é o exemplo com o Papai Noel */
+function capa(){
+  const n = nome(); const e = EXEMPLOS[S.genero === "menina" ? "menina" : "menino"];
   const tam = n.length > 10 ? 25 : n.length > 7 ? 30 : 35;
-  const t = titulo(); const tamT = t.length > 22 ? 14.5 : 17;
   const ded = esc(dedicatoria());
-  return `<div class="capa${pequena ? " pequena" : ""}"><svg viewBox="0 0 240 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Prévia: ${n} ${esc(t)}">
+  return `<div class="capa"><svg viewBox="0 0 240 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Prévia: ${n} e o Natal com o Papai Noel">
     <defs><clipPath id="cc"><rect width="240" height="300" rx="12"/></clipPath>
-    <linearGradient id="sombra" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity=".55"/><stop offset=".38" stop-color="#000" stop-opacity="0"/><stop offset=".78" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity="${ded ? ".55" : "0"}"/></linearGradient></defs>
+    <linearGradient id="sombra" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity=".55"/><stop offset=".38" stop-color="#000" stop-opacity="0"/><stop offset=".78" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity="${ded ? ".55" : ".2"}"/></linearGradient></defs>
     <g clip-path="url(#cc)"><rect width="240" height="300" fill="#7E1F1F"/>
-      <image href="capa-${g}.jpg" x="0" y="0" width="240" height="300" preserveAspectRatio="xMidYMid slice"/>
+      <image href="${e.desenho}" x="0" y="0" width="240" height="300" preserveAspectRatio="xMidYMid slice"/>
       <rect width="240" height="300" fill="url(#sombra)"/></g>
     <text x="120" y="48" text-anchor="middle" font-family="'Baloo 2', Fredoka, sans-serif" font-weight="800" font-size="${tam}" fill="#D7393B" stroke="#fff" stroke-width="5" stroke-linejoin="round" paint-order="stroke">${n}</text>
-    <text x="120" y="72" text-anchor="middle" font-family="Fredoka, sans-serif" font-weight="700" font-size="${tamT}" fill="#fff" stroke="#7E1F1F" stroke-width="3.5" stroke-linejoin="round" paint-order="stroke">${esc(t)}</text>
+    <text x="120" y="72" text-anchor="middle" font-family="Fredoka, sans-serif" font-weight="700" font-size="15.5" fill="#fff" stroke="#7E1F1F" stroke-width="3.5" stroke-linejoin="round" paint-order="stroke">e o Natal com o Papai Noel</text>
     ${ded ? `<text x="18" y="270" font-family="Fredoka, sans-serif" font-weight="600" font-size="12.5" fill="#fff" stroke="#000" stroke-opacity=".35" stroke-width="2" paint-order="stroke">${ded} ❤</text>` : ""}
     <g class="play"><circle cx="206" cy="252" r="19" fill="#fff" opacity=".92"/><path d="M199 241 L218 252 L199 263Z" fill="#B3262A"/></g>
     <rect x="14" y="283" width="212" height="5" rx="2.5" fill="#fff" opacity=".45"/><rect x="14" y="283" width="58" height="5" rx="2.5" fill="#D7393B"/>
   </svg></div>`;
 }
 
-function topo(tela){
-  const i = PASSOS.indexOf(tela);
-  return `${marca}<div class="topo"><div class="barra" aria-hidden="true"><i style="width:${Math.round((i+1)/PASSOS.length*100)}%"></i></div><div class="passo-n">Passo ${i+1} de ${PASSOS.length}</div></div>`;
+function antesDepois(){
+  const e = EXEMPLOS[S.exemplo];
+  return `<div class="antes-depois">
+      <div class="ad-item"><img class="foto" src="${e.foto}" alt="Foto de exemplo: ${e.nome}" width="400" height="430"><small>A foto</small></div>
+      <span class="seta" aria-hidden="true">➜</span>
+      <div class="ad-item"><video class="desenho" src="${e.video}" poster="${e.desenho}" muted autoplay loop playsinline preload="metadata"></video><small>O desenho de Natal</small></div>
+    </div>
+    <div class="ad-troca">${Object.entries(EXEMPLOS).map(([k,x]) => `<button data-ex="${k}" aria-pressed="${S.exemplo===k}">Ver ${x.nome}</button>`).join("")}</div>`;
 }
-
-const familiaLista = () => Object.entries(S.familia).map(([q,n]) => n.trim() ? `${q} (${n.trim()})` : q);
 
 function mensagemZap(){
   const L = ["Oi! Quero a prévia grátis do desenho de Natal 🎄", `Pedido ${S.codigo}`, `Criança: ${S.nome.trim()} (${S.genero})`];
-  if (S.aventura) L.push(`Aventura: ${AVENTURAS[S.aventura].nome}`);
-  const f = familiaLista(); if (f.length) L.push(`Aparecem na história: ${f.join(", ")}`);
   if (S.quem) L.push(`Presente de: ${S.quem}${S.quemNome.trim() ? " " + S.quemNome.trim() : ""}`);
   L.push("Vou mandar a foto agora 📸");
   return L.join("\n");
@@ -204,8 +176,8 @@ const TELAS = {
 inicio(){
   return `${marca}<section class="tela">
     <span class="selo">🎄 Faltam ${diasNatal()} dias para o Natal</span>
-    <h1>Seu filho vira um <em>desenho animado de Natal</em></h1>
-    <p class="sub">Com o rostinho e o nome da criança, narrado e pronto para assistir na TV com a família. Veja a prévia grátis.</p>
+    <h1>Seu filho ou seu neto vira um <em>desenho animado de Natal</em></h1>
+    <div id="ad">${antesDepois()}</div>
     <div class="cartao">
       <div><label class="rot" for="fNome">Nome da criança</label>
         <input class="campo" id="fNome" maxlength="20" autocomplete="off" enterkeyhint="done" placeholder="Ex: Alice, Miguel" value="${esc(S.nome)}"></div>
@@ -215,20 +187,16 @@ inicio(){
           <button class="opc" data-g="menina" aria-pressed="${S.genero==="menina"}">👧 Menina</button>
         </div></div>
       <p class="erro" id="erro"></p>
-      <button class="btn" data-acao="comecar">Ver a prévia grátis</button>
+      <button class="btn" data-acao="previa">Ver a prévia grátis</button>
     </div>
+    <p class="sub">Um vídeo narrado com o rostinho e o nome da criança, num Natal mágico com o Papai Noel. Para assistir na TV com a família.</p>
     <div class="confia">
       <div><b>🎁</b>Prévia grátis antes de pagar</div>
       <div><b>📲</b>Chega no WhatsApp</div>
       <div><b>⏱️</b>Pronto em até 24h</div>
     </div>
-    <div class="vitrine">
-      <img src="../marca/hero-foto.jpg" width="487" height="860" alt="Foto de um menino e o mesmo menino desenhado como personagem">
-      <div class="celular"><video src="../previa/hero-vertical.mp4" poster="../previa/hero-vertical.jpg" muted autoplay loop playsinline preload="metadata"></video><span>▶ VÍDEO</span></div>
-    </div>
-    <p class="leg">Exemplo de desenho. O seu é feito com a foto da sua criança.</p>
     <div class="faq">
-      <details><summary>O que eu recebo?</summary><p>Um desenho animado em vídeo, com a história de Natal narrada e a criança como personagem em todas as cenas. Chega no seu WhatsApp.</p></details>
+      <details><summary>O que eu recebo?</summary><p>Um desenho animado em vídeo, com uma história de Natal narrada: a criança e o Papai Noel, juntos em todas as cenas. Chega no seu WhatsApp.</p></details>
       <details><summary>Quanto custa?</summary><p>${CONFIG.preco}, no Pix. Você só paga depois de ver a prévia com o rostinho da criança.</p></details>
       <details><summary>É um livro? Vem pelo correio?</summary><p>Não. É um vídeo digital: sem frete, dá para ver no celular, colocar na TV e mandar no grupo da família.</p></details>
       <details><summary>E a foto da criança?</summary><p>Você manda no WhatsApp. Ela é usada só para fazer o desenho e apagada depois da entrega.</p></details>
@@ -236,82 +204,28 @@ inicio(){
   </section>`;
 },
 
-aventura(){
-  return `${topo("aventura")}<section class="tela">
-    ${capa(true)}
-    <h2>Qual vai ser a aventura de <em>${nome()}</em>?</h2>
-    <div class="aventuras">${Object.entries(AVENTURAS).map(([k,a]) => `
-      <button class="aventura" data-av="${k}" aria-pressed="${S.aventura===k}">
-        <img src="${a.img}" alt="" width="720" height="540"><span><b>${a.nome}</b><small>${a.desc}</small></span>
-      </button>`).join("")}</div>
-    <button class="btn-sec" data-ir="inicio">← Trocar o nome</button>
-  </section>`;
-},
-
-familia(){
-  const sel = Object.keys(S.familia);
-  return `${topo("familia")}<section class="tela">
-    ${capa(true)}
-    <h2>Quem aparece na história com ${ele()}?</h2>
-    <div class="cartao">
-      <div><span class="rot">Toque em quem vai aparecer <span class="opcional">(pode escolher vários)</span></span>
-        <div class="chips">${FAMILIA.map(q => `<button class="chip" data-fam="${q}" aria-pressed="${sel.includes(q)}">${q}</button>`).join("")}</div></div>
-      ${sel.length ? `<div style="display:grid;gap:8px"><span class="rot">Nomes <span class="opcional">(para a história chamar pelo nome)</span></span>
-        ${sel.map(q => `<label class="pessoa"><b>${q}</b><input class="campo" data-fam-nome="${q}" maxlength="18" placeholder="Nome ${q==="Pet"?"do bichinho":"(opcional)"}" value="${esc(S.familia[q])}"></label>`).join("")}</div>` : ""}
-      <button class="btn" data-ir="presente">Continuar</button>
-    </div>
-    <button class="btn-sec" data-ir="aventura">← Voltar</button>
-  </section>`;
-},
-
-presente(){
-  return `${topo("presente")}<section class="tela">
-    ${capa(true)}
-    <h2>De quem é esse presente?</h2>
-    <div class="cartao">
-      <div><span class="rot">O presente é de</span>
-        <div class="chips">${QUEM.map(q => `<button class="chip" data-quem="${q}" aria-pressed="${S.quem===q}">${q}</button>`).join("")}</div></div>
-      <div><label class="rot" for="fQuem">Seu nome <span class="opcional">(sai na dedicatória)</span></label>
-        <input class="campo" id="fQuem" maxlength="18" placeholder="Ex: Teresa" value="${esc(S.quemNome)}"></div>
-      <p class="mini" id="dedPrev">${S.quem ? "Dedicatória: “" + esc(dedicatoria()) + "”" : "Ex.: “Com amor, Vovó Teresa”"}</p>
-      <button class="btn" data-acao="resumo">Ver o pedido</button>
-    </div>
-    <button class="btn-sec" data-ir="familia">← Voltar</button>
-  </section>`;
-},
-
-resumo(){
-  const f = familiaLista();
-  return `${topo("resumo")}<section class="tela">
-    <h2>O desenho de <em>${nome()}</em> está pronto para começar 🎄</h2>
-    ${capa(false)}
+previa(){
+  return `${marca}<section class="tela">
+    <h2>A prévia de <em>${nome()}</em> 🎄</h2>
+    ${capa()}
     <p class="aviso-ex">Personagem de exemplo. No WhatsApp você recebe esta capa com o rostinho ${dele()}, grátis.</p>
     <a class="btn zap" id="btnZap" href="${linkZap()}">Receber a prévia com a foto ${dele()}</a>
     <p class="mini" style="margin-top:-6px">Sem compromisso: você só paga se gostar.</p>
-    <div class="recibo">
-      <span class="cod">Pedido ${esc(S.codigo)}</span>
-      <dl>
-        <div><dt>Criança</dt><dd>${nome()}</dd></div>
-        <div><dt>Aventura</dt><dd>${esc(S.aventura ? AVENTURAS[S.aventura].nome : "Magia do Natal")}</dd></div>
-        ${f.length ? `<div><dt>Na história</dt><dd>${esc(f.join(", "))}</dd></div>` : ""}
-        ${S.quem ? `<div><dt>Dedicatória</dt><dd>${esc(dedicatoria())}</dd></div>` : ""}
-        <div><dt>Valor</dt><dd><span class="preco">${CONFIG.preco}</span></dd></div>
-      </dl>
+    <div class="cartao">
+      <div><span class="rot">É presente de alguém? <span class="opcional">(sai na dedicatória)</span></span>
+        <div class="chips">${QUEM.map(q => `<button class="chip" data-quem="${q}" aria-pressed="${S.quem===q}">${q}</button>`).join("")}</div></div>
+      ${S.quem ? `<div><label class="rot" for="fQuem">Seu nome <span class="opcional">(opcional)</span></label>
+        <input class="campo" id="fQuem" maxlength="18" placeholder="Ex: Teresa" value="${esc(S.quemNome)}"></div>` : ""}
+      <ol class="passos">
+        <li>Mande uma foto ${dele()} no WhatsApp</li>
+        <li>Receba a capa com o rostinho ${dele()} em minutos, grátis</li>
+        <li>Gostou? Pague <span class="preco">${CONFIG.preco}</span> no Pix e receba o desenho completo em até 24h</li>
+      </ol>
     </div>
-    <ol class="passos">
-      <li>Mande uma foto ${dele()} no WhatsApp</li>
-      <li>Receba a capa com o rostinho ${dele()} em minutos, grátis</li>
-      <li>Gostou? Pague ${CONFIG.preco} no Pix e receba o desenho completo em até 24h</li>
-    </ol>
-    <button class="btn-sec" data-ir="presente">← Corrigir alguma coisa</button>
+    <button class="btn-sec" data-acao="voltar">← Trocar o nome</button>
   </section>`;
 }
 };
-
-function ir(tela){
-  S.tela = tela; salvar(); render(); window.scrollTo({top:0});
-  if (tela === "resumo") track("InitiateCheckout", {content_name:"natal", value:CONFIG.valor, currency:"BRL"}, S.codigo + "-resumo");
-}
 
 function render(){
   if (!TELAS[S.tela]) S.tela = "inicio";
@@ -319,32 +233,41 @@ function render(){
   const f = document.getElementById("fNome");
   if (f) f.addEventListener("input", () => { S.nome = f.value; salvar(); });
   const q = document.getElementById("fQuem");
-  if (q) q.addEventListener("input", () => { S.quemNome = q.value; salvar(); atualizaDed(); });
-  document.querySelectorAll("[data-fam-nome]").forEach(i => i.addEventListener("input", () => { S.familia[i.dataset.famNome] = i.value; salvar(); }));
+  if (q) q.addEventListener("input", () => { S.quemNome = q.value; salvar(); atualizaCapa(); });
 }
-function atualizaDed(){
-  const p = document.getElementById("dedPrev"); if (p) p.textContent = S.quem ? `Dedicatória: “${dedicatoria()}”` : "Ex.: “Com amor, Vovó Teresa”";
-  const c = document.querySelector(".capa"); if (c) c.outerHTML = capa(true);
+function atualizaCapa(){
+  const c = document.querySelector(".capa"); if (c) c.outerHTML = capa();
+  const z = document.getElementById("btnZap"); if (z) z.href = linkZap();
 }
+
+/* troca o exemplo do antes/depois sozinho a cada 6 s, enquanto a pessoa está no topo */
+setInterval(() => {
+  if (S.tela !== "inicio" || document.activeElement?.id === "fNome") return;
+  S.exemplo = S.exemplo === "menino" ? "menina" : "menino";
+  const ad = document.getElementById("ad"); if (ad) ad.innerHTML = antesDepois();
+}, 6000);
 
 document.addEventListener("click", (ev) => {
   const b = ev.target.closest("button, a"); if (!b) return;
-  if (b.dataset.g){ S.genero = b.dataset.g; salvar(); document.querySelectorAll("[data-g]").forEach(x => x.setAttribute("aria-pressed", x === b)); return; }
-  if (b.dataset.ir){ ir(b.dataset.ir); return; }
-  if (b.dataset.av){ S.aventura = b.dataset.av; salvar(); document.querySelectorAll("[data-av]").forEach(x => x.setAttribute("aria-pressed", x === b)); document.querySelector(".capa").outerHTML = capa(true); setTimeout(() => ir("familia"), 450); return; }
-  if (b.dataset.fam){ const q = b.dataset.fam; if (q in S.familia) delete S.familia[q]; else S.familia[q] = ""; salvar(); render(); return; }
-  if (b.dataset.quem){ S.quem = S.quem === b.dataset.quem ? "" : b.dataset.quem; salvar(); document.querySelectorAll("[data-quem]").forEach(x => x.setAttribute("aria-pressed", x.dataset.quem === S.quem)); atualizaDed(); return; }
-  if (b.dataset.acao === "comecar"){
+  if (b.dataset.ex){ S.exemplo = b.dataset.ex; document.getElementById("ad").innerHTML = antesDepois(); return; }
+  if (b.dataset.g){ S.genero = b.dataset.g; S.exemplo = b.dataset.g; salvar(); document.querySelectorAll("[data-g]").forEach(x => x.setAttribute("aria-pressed", x === b)); document.getElementById("ad").innerHTML = antesDepois(); return; }
+  if (b.dataset.quem){
+    S.quem = S.quem === b.dataset.quem ? "" : b.dataset.quem; salvar();
+    render(); const q = document.getElementById("fQuem"); if (q) q.focus();
+    return;
+  }
+  if (b.dataset.acao === "previa"){
     const n = (document.getElementById("fNome")?.value || "").trim();
     const erro = document.getElementById("erro");
     if (n.length < 2){ erro.textContent = "Escreva o nome da criança."; document.getElementById("fNome").focus(); return; }
     if (!S.genero){ erro.textContent = "Escolha menino ou menina."; return; }
     S.nome = n.charAt(0).toUpperCase() + n.slice(1);
     if (!S.codigo) S.codigo = "NT" + Math.floor(1000 + Math.random() * 9000);
+    S.tela = "previa"; salvar(); render(); window.scrollTo({top:0});
     track("Lead", {content_name:"natal"});
-    ir("aventura"); return;
+    return;
   }
-  if (b.dataset.acao === "resumo"){ ir("resumo"); return; }
+  if (b.dataset.acao === "voltar"){ S.tela = "inicio"; salvar(); render(); window.scrollTo({top:0}); return; }
   if (b.id === "btnZap"){
     /* No navegador do Instagram/Facebook o WhatsApp abre na hora e o evento se perde: segura 0,7 s para o Pixel enviar o Contact */
     ev.preventDefault();
