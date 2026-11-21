@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Desenho de Natal · Fábrica de Contos</title>
-<meta name="description" content="Seu filho ou seu neto vira um desenho animado de Natal com o Papai Noel, com o rostinho e o nome dele. Veja a prévia grátis no WhatsApp e só pague se gostar.">
+<meta name="description" content="Seu filho ou seu neto vira um desenho animado de Natal com o Papai Noel, com o rostinho e o nome dele. Pedido pelo WhatsApp, R$ 19,90, pronto em até 24h.">
 <meta name="color-scheme" content="only light">
 <meta name="theme-color" content="#7E1F1F">
 <link rel="icon" href="../marca/logo-compacto.png">
@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@800&family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap">
 
 <!-- Meta Pixel: Fábrica de Contos - Site (3650201718481567).
-     Funil de Natal: PageView + ViewContent (abriu), Lead (viu a prévia com o nome), Contact (foi para o WhatsApp). -->
+     Funil de Natal: PageView + ViewContent (abriu), Lead (viu o resumo do pedido com o nome), Contact (foi para o WhatsApp). -->
 <script>
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
 if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
@@ -25,7 +25,7 @@ fbq('track','ViewContent',{content_name:'natal'});
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=3650201718481567&ev=PageView&noscript=1"></noscript>
 
 <style>
-/* Duas telas: (1) antes/depois + nome e menino/menina, (2) prévia da capa com o Papai Noel + dedicatória opcional + WhatsApp.
+/* Duas telas: (1) antes/depois + nome e menino/menina, (2) resumo do pedido com a capa de exemplo + dedicatória opcional + WhatsApp.
    A história é sempre a criança e o Papai Noel (sem personagens extras). */
 :root{
   --tinta:#1E4A37; --tinta-2:#4F6D60; --papel:#FBF6EE; --folha:#FFFFFF; --linha:#EADFD0;
@@ -87,7 +87,7 @@ h1 em,h2 em{font-style:normal;color:var(--natal)}
 .confia{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
 .confia div{background:#fff;border:1px solid var(--linha);border-radius:14px;padding:10px 6px;font-size:12.5px;font-weight:700;color:var(--tinta-2);line-height:1.3}
 .confia b{display:block;font-size:20px}
-/* capa de prévia */
+/* capa de exemplo com o nome */
 .capa{position:relative;width:min(280px,76%);justify-self:center;filter:drop-shadow(0 12px 18px rgba(126,31,31,.28))}
 .capa svg{display:block;width:100%;height:auto}
 .capa .play{transform-origin:206px 252px;animation:pulsa 1.6s ease-in-out infinite}
@@ -165,9 +165,9 @@ function antesDepois(){
 }
 
 function mensagemZap(){
-  const L = ["Oi! Quero a prévia grátis do desenho de Natal 🎄", `Pedido ${S.codigo}`, `Criança: ${S.nome.trim()} (${S.genero})`];
+  const L = ["Oi! Quero o desenho de Natal 🎄", `Pedido ${S.codigo}`, `Criança: ${S.nome.trim()} (${S.genero})`];
   if (S.quem) L.push(`Presente de: ${S.quem}${S.quemNome.trim() ? " " + S.quemNome.trim() : ""}`);
-  L.push("Vou mandar a foto agora 📸");
+  L.push("Já vou mandar a foto 📸");
   return L.join("\n");
 }
 const linkZap = () => `https://api.whatsapp.com/send?phone=${CONFIG.whatsapp}&text=${encodeURIComponent(mensagemZap())}`;
@@ -187,18 +187,19 @@ inicio(){
           <button class="opc" data-g="menina" aria-pressed="${S.genero==="menina"}">👧 Menina</button>
         </div></div>
       <p class="erro" id="erro"></p>
-      <button class="btn" data-acao="previa">Ver a prévia grátis</button>
+      <button class="btn" data-acao="previa">Quero o desenho de Natal</button>
     </div>
     <p class="sub">Um vídeo narrado com o rostinho e o nome da criança, num Natal mágico com o Papai Noel. Para assistir na TV com a família.</p>
     <div class="confia">
-      <div><b>🎁</b>Prévia grátis antes de pagar</div>
+      <div><b>💛</b>Se o rostinho não ficar parecido, a gente refaz</div>
       <div><b>📲</b>Chega no WhatsApp</div>
       <div><b>⏱️</b>Pronto em até 24h</div>
     </div>
     <div class="faq">
       <details><summary>O que eu recebo?</summary><p>Um desenho animado em vídeo, com uma história de Natal narrada: a criança e o Papai Noel, juntos em todas as cenas. Chega no seu WhatsApp.</p></details>
-      <details><summary>Quanto custa?</summary><p>${CONFIG.preco}, no Pix. Você só paga depois de ver a prévia com o rostinho da criança.</p></details>
+      <details><summary>Quanto custa?</summary><p>${CONFIG.preco}, no Pix, direto no WhatsApp. Depois do Pix e da foto, o desenho fica pronto em até 24h.</p></details>
       <details><summary>É um livro? Vem pelo correio?</summary><p>Não. É um vídeo digital: sem frete, dá para ver no celular, colocar na TV e mandar no grupo da família.</p></details>
+      <details><summary>E se não ficar parecido?</summary><p>A gente refaz o rostinho sem custo. A história é a mesma, só ajustamos a criança até ficar com a carinha dela.</p></details>
       <details><summary>E a foto da criança?</summary><p>Você manda no WhatsApp. Ela é usada só para fazer o desenho e apagada depois da entrega.</p></details>
     </div>
   </section>`;
@@ -206,11 +207,11 @@ inicio(){
 
 previa(){
   return `${marca}<section class="tela">
-    <h2>A prévia de <em>${nome()}</em> 🎄</h2>
+    <h2>O desenho de Natal de <em>${nome()}</em> 🎄</h2>
     ${capa()}
-    <p class="aviso-ex">Personagem de exemplo. No WhatsApp você recebe esta capa com o rostinho ${dele()}, grátis.</p>
-    <a class="btn zap" id="btnZap" href="${linkZap()}">Receber a prévia com a foto ${dele()}</a>
-    <p class="mini" style="margin-top:-6px">Sem compromisso: você só paga se gostar.</p>
+    <p class="aviso-ex">Exemplo de capa. O seu desenho é feito com a foto ${dele()}.</p>
+    <a class="btn zap" id="btnZap" href="${linkZap()}">Fazer o pedido no WhatsApp</a>
+    <p class="mini" style="margin-top:-6px"><span class="preco">${CONFIG.preco}</span> no Pix · pronto em até 24h · se o rostinho não ficar parecido, a gente refaz</p>
     <div class="cartao">
       <div><span class="rot">É presente de alguém? <span class="opcional">(sai na dedicatória)</span></span>
         <div class="chips">${QUEM.map(q => `<button class="chip" data-quem="${q}" aria-pressed="${S.quem===q}">${q}</button>`).join("")}</div></div>
@@ -218,8 +219,8 @@ previa(){
         <input class="campo" id="fQuem" maxlength="18" placeholder="Ex: Teresa" value="${esc(S.quemNome)}"></div>` : ""}
       <ol class="passos">
         <li>Mande uma foto ${dele()} no WhatsApp</li>
-        <li>Receba a capa com o rostinho ${dele()} em minutos, grátis</li>
-        <li>Gostou? Pague <span class="preco">${CONFIG.preco}</span> no Pix e receba o desenho completo em até 24h</li>
+        <li>Pague <span class="preco">${CONFIG.preco}</span> no Pix</li>
+        <li>Receba o desenho animado completo em até 24h</li>
       </ol>
     </div>
     <button class="btn-sec" data-acao="voltar">← Trocar o nome</button>
@@ -264,7 +265,7 @@ document.addEventListener("click", (ev) => {
     S.nome = n.charAt(0).toUpperCase() + n.slice(1);
     if (!S.codigo) S.codigo = "NT" + Math.floor(1000 + Math.random() * 9000);
     S.tela = "previa"; salvar(); render(); window.scrollTo({top:0});
-    track("Lead", {content_name:"natal"});
+    track("Lead", {content_name:"natal"});  /* chegou no resumo do pedido */
     return;
   }
   if (b.dataset.acao === "voltar"){ S.tela = "inicio"; salvar(); render(); window.scrollTo({top:0}); return; }
