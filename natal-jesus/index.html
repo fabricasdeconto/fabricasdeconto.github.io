@@ -72,6 +72,9 @@ h1 .jesus::before,h1 .jesus::after{content:"✨";font-size:.5em;vertical-align:m
 .titulo-cel[hidden]{display:none}
 .titulo-cel b{font-family:"Baloo 2",var(--fonte-titulo);font-weight:800;font-size:clamp(28px,9vw,38px);line-height:1;color:#D7393B;-webkit-text-stroke:5px #fff;paint-order:stroke fill}
 .titulo-cel span{font-family:var(--fonte-titulo);font-weight:700;font-size:15px;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.6)}
+.celular .som{border:0;cursor:pointer;font:inherit;font-weight:800;font-size:13px;padding:7px 12px;box-shadow:0 3px 10px rgba(0,0,0,.25);animation:chama 1.8s ease-in-out infinite}
+.celular .som[aria-pressed="true"]{animation:none}
+@keyframes chama{50%{transform:translateX(-50%) scale(1.08)}}
 .celular .tag{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);white-space:nowrap;background:rgba(255,255,255,.94);color:var(--natal);font-weight:800;font-size:12px;padding:5px 10px;border-radius:999px}
 /* formulário */
 .cartao{background:var(--folha);border:2px solid var(--linha);border-radius:20px;padding:16px;display:grid;gap:14px;text-align:left}
@@ -126,8 +129,8 @@ const CONFIG = {
 };
 /* exemplos do antes e depois (foto real de exemplo → desenho com Jesus) */
 const EXEMPLOS = {
-  menino: {nome:"Davi",  foto:"exemplo-davi-foto.jpg",  desenho:"exemplo-davi-desenho.jpg",  video:"exemplo-jesus-davi.mp4", poster:"exemplo-jesus-davi.jpg"},
-  menina: {nome:"Alice", foto:"exemplo-alice-foto.jpg", desenho:"exemplo-alice-desenho.jpg", video:"exemplo-jesus.mp4", poster:"exemplo-jesus.jpg"}
+  menino: {nome:"Davi",  foto:"exemplo-davi-foto.jpg",  desenho:"exemplo-davi-desenho.jpg",  video:"exemplo-jesus-davi.mp4?v=2", poster:"exemplo-jesus-davi.jpg"},
+  menina: {nome:"Alice", foto:"exemplo-alice-foto.jpg", desenho:"exemplo-alice-desenho.jpg", video:"exemplo-jesus.mp4?v=2", poster:"exemplo-jesus.jpg"}
 };
 /* ===================================== */
 
@@ -167,7 +170,7 @@ function antesDepois(){
       <div class="celular">
         <video src="${e.video}" poster="${e.poster}" muted autoplay loop playsinline preload="metadata" aria-label="Trecho do desenho animado com Jesus"></video>
         <div class="titulo-cel" id="tituloCel" ${S.nome.trim() ? "" : "hidden"}><b id="nomeCel">${esc(S.nome.trim().charAt(0).toUpperCase() + S.nome.trim().slice(1))}</b><span>e o Natal com Jesus</span></div>
-        <span class="tag">▶ com Jesus</span>
+        <button class="tag som" data-acao="som" aria-pressed="false">🔊 Ouvir Jesus</button>
       </div>
     </div>`;
 }
@@ -256,6 +259,14 @@ document.addEventListener("click", (ev) => {
   if (b.dataset.quem){
     S.quem = S.quem === b.dataset.quem ? "" : b.dataset.quem; salvar();
     render(); const q = document.getElementById("fQuem"); if (q) q.focus();
+    return;
+  }
+  if (b.dataset.acao === "som"){
+    const v = b.closest(".celular")?.querySelector("video"); if (!v) return;
+    const liga = v.muted;
+    v.muted = !liga; if (liga){ v.currentTime = 0; v.volume = 1; v.play().catch(()=>{}); }
+    b.setAttribute("aria-pressed", liga); b.textContent = liga ? "🔇 Tirar o som" : "🔊 Ouvir Jesus";
+    if (liga) track("ViewContent", {content_name:"natal-jesus-ouviu"});
     return;
   }
   if (b.dataset.acao === "pedir"){
