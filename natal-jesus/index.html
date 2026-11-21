@@ -168,9 +168,9 @@ function antesDepois(){
         <img class="desenho" src="${e.desenho}" alt="${e.nome} no desenho com Jesus" width="400" height="400"><small>Vira desenho</small>
       </div>
       <div class="celular">
-        <video src="${e.video}" poster="${e.poster}" muted autoplay loop playsinline preload="metadata" aria-label="Trecho do desenho animado com Jesus"></video>
+        <video src="${e.video}" poster="${e.poster}" ${SOM.ligado ? "" : "muted"} autoplay loop playsinline preload="metadata" aria-label="Trecho do desenho animado com Jesus"></video>
         <div class="titulo-cel" id="tituloCel" ${S.nome.trim() ? "" : "hidden"}><b id="nomeCel">${esc(S.nome.trim().charAt(0).toUpperCase() + S.nome.trim().slice(1))}</b><span>e o Natal com Jesus</span></div>
-        <button class="tag som" data-acao="som" aria-pressed="false">🔊 Ouvir Jesus</button>
+        <button class="tag som" data-acao="som" aria-pressed="${SOM.ligado}">${SOM.ligado ? "🔇 Tirar o som" : "🔊 Ouvir Jesus"}</button>
       </div>
     </div>`;
 }
@@ -253,20 +253,35 @@ function atualizaCapa(){
   const z = document.getElementById("btnZap"); if (z) z.href = linkZap();
 }
 
+/* som da voz de Jesus: liga no primeiro toque na página (o navegador não deixa tocar com som antes disso)
+   e continua ligado quando troca menino/menina; só desliga se a pessoa tocar em "Tirar o som" */
+const SOM = {ligado:false, desligou:false};
+function aplicaSom(doInicio){
+  const v = document.querySelector(".hero-jesus video"), b = document.querySelector("[data-acao=som]");
+  if (b){ b.setAttribute("aria-pressed", SOM.ligado); b.textContent = SOM.ligado ? "🔇 Tirar o som" : "🔊 Ouvir Jesus"; }
+  if (!v) return;
+  v.muted = !SOM.ligado;
+  if (SOM.ligado){ if (doInicio) v.currentTime = 0; v.volume = 1; v.play().catch(()=>{}); }
+}
+const primeiroToque = (ev) => {
+  if (SOM.ligado || SOM.desligou || ev.target.closest?.("[data-acao=som]")) return;
+  SOM.ligado = true; aplicaSom(true); track("ViewContent", {content_name:"natal-jesus-ouviu"});
+};
+document.addEventListener("pointerdown", primeiroToque, true);
+document.addEventListener("keydown", primeiroToque, true);
+
 document.addEventListener("click", (ev) => {
   const b = ev.target.closest("button, a"); if (!b) return;
-    if (b.dataset.g){ S.genero = b.dataset.g; S.exemplo = b.dataset.g; salvar(); document.querySelectorAll("[data-g]").forEach(x => x.setAttribute("aria-pressed", x === b)); document.getElementById("ad").innerHTML = antesDepois(); return; }
+    if (b.dataset.g){ S.genero = b.dataset.g; S.exemplo = b.dataset.g; salvar(); document.querySelectorAll("[data-g]").forEach(x => x.setAttribute("aria-pressed", x === b)); document.getElementById("ad").innerHTML = antesDepois(); aplicaSom(true); return; }
   if (b.dataset.quem){
     S.quem = S.quem === b.dataset.quem ? "" : b.dataset.quem; salvar();
     render(); const q = document.getElementById("fQuem"); if (q) q.focus();
     return;
   }
   if (b.dataset.acao === "som"){
-    const v = b.closest(".celular")?.querySelector("video"); if (!v) return;
-    const liga = v.muted;
-    v.muted = !liga; if (liga){ v.currentTime = 0; v.volume = 1; v.play().catch(()=>{}); }
-    b.setAttribute("aria-pressed", liga); b.textContent = liga ? "🔇 Tirar o som" : "🔊 Ouvir Jesus";
-    if (liga) track("ViewContent", {content_name:"natal-jesus-ouviu"});
+    SOM.ligado = !SOM.ligado; if (!SOM.ligado) SOM.desligou = true;
+    aplicaSom(true);
+    if (SOM.ligado) track("ViewContent", {content_name:"natal-jesus-ouviu"});
     return;
   }
   if (b.dataset.acao === "pedir"){
