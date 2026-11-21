@@ -69,6 +69,7 @@ h1 .jesus::before,h1 .jesus::after{content:"✨";font-size:.5em;vertical-align:m
 .celular video{display:block;width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:23px;background:#0b1f3a}
 .capa-cel{width:min(250px,68%);justify-self:center}
 .titulo-cel{position:absolute;left:8px;right:8px;top:8px;padding:30px 8px 34px;border-radius:23px 23px 0 0;background:linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,0));display:grid;gap:2px;pointer-events:none}
+.titulo-cel[hidden]{display:none}
 .titulo-cel b{font-family:"Baloo 2",var(--fonte-titulo);font-weight:800;font-size:clamp(28px,9vw,38px);line-height:1;color:#D7393B;-webkit-text-stroke:5px #fff;paint-order:stroke fill}
 .titulo-cel span{font-family:var(--fonte-titulo);font-weight:700;font-size:15px;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.6)}
 .celular .tag{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);white-space:nowrap;background:rgba(255,255,255,.94);color:var(--natal);font-weight:800;font-size:12px;padding:5px 10px;border-radius:999px}
@@ -165,6 +166,7 @@ function antesDepois(){
       </div>
       <div class="celular">
         <video src="${e.video}" poster="${e.poster}" muted autoplay loop playsinline preload="metadata" aria-label="Trecho do desenho animado com Jesus"></video>
+        <div class="titulo-cel" id="tituloCel" ${S.nome.trim() ? "" : "hidden"}><b id="nomeCel">${esc(S.nome.trim().charAt(0).toUpperCase() + S.nome.trim().slice(1))}</b><span>e o Natal com Jesus</span></div>
         <span class="tag">▶ com Jesus</span>
       </div>
     </div>`;
@@ -192,7 +194,8 @@ inicio(){
           <button class="opc" data-g="menina" aria-pressed="${S.genero==="menina"}">👧 Menina</button>
         </div></div>
       <p class="erro" id="erro"></p>
-      <button class="btn" data-acao="previa">Quero o desenho com Jesus</button>
+      <button class="btn zap" data-acao="pedir">Quero o desenho com Jesus</button>
+      <p class="mini" style="margin-top:-6px;text-align:center"><span class="preco">${CONFIG.preco}</span> no Pix · pronto em até 24h · se o rostinho não ficar parecido, a gente refaz</p>
     </div>
     <p class="sub">Um vídeo narrado com o rostinho e o nome da criança, numa história de Natal com Jesus, cheia de amor e fé. Para assistir na TV com a família.</p>
     <div class="confia">
@@ -230,12 +233,17 @@ previa(){
 };
 
 function render(){
-  if (!TELAS[S.tela]) S.tela = "inicio";
+  S.tela = "inicio";
   document.getElementById("app").innerHTML = TELAS[S.tela]();
   const f = document.getElementById("fNome");
-  if (f) f.addEventListener("input", () => { S.nome = f.value; salvar(); });
+  if (f) f.addEventListener("input", () => { S.nome = f.value; salvar(); atualizaNomeCel(); });
   const q = document.getElementById("fQuem");
   if (q) q.addEventListener("input", () => { S.quemNome = q.value; salvar(); atualizaCapa(); });
+}
+/* o nome digitado aparece em cima do vídeo do topo */
+function atualizaNomeCel(){
+  const t = document.getElementById("tituloCel"), b = document.getElementById("nomeCel"); if (!t || !b) return;
+  const n = S.nome.trim(); b.textContent = n ? n.charAt(0).toUpperCase() + n.slice(1) : ""; t.hidden = !n;
 }
 function atualizaCapa(){
   const c = document.querySelector(".capa"); if (c) c.outerHTML = capa();
@@ -250,15 +258,22 @@ document.addEventListener("click", (ev) => {
     render(); const q = document.getElementById("fQuem"); if (q) q.focus();
     return;
   }
-  if (b.dataset.acao === "previa"){
+  if (b.dataset.acao === "pedir"){
+    /* vai direto para o WhatsApp com o pedido pronto (sem tela de resumo) */
     const n = (document.getElementById("fNome")?.value || "").trim();
     const erro = document.getElementById("erro");
     if (n.length < 2){ erro.textContent = "Escreva o nome da criança."; document.getElementById("fNome").focus(); return; }
     if (!S.genero){ erro.textContent = "Escolha menino ou menina."; return; }
+    erro.textContent = "";
     S.nome = n.charAt(0).toUpperCase() + n.slice(1);
     if (!S.codigo) S.codigo = "JS" + Math.floor(1000 + Math.random() * 9000);
-    S.tela = "previa"; salvar(); render(); window.scrollTo({top:0});
-    track("Lead", {content_name:"natal-jesus"});  /* chegou no resumo do pedido */
+    salvar();
+    const url = linkZap();
+    track("Lead", {content_name:"natal-jesus"});
+    track("Contact", {content_name:"natal-jesus", value:CONFIG.valor, currency:"BRL"}, S.codigo + "-contato");
+    b.textContent = "Abrindo o WhatsApp...";
+    /* segura 0,7 s para o Pixel enviar antes do WhatsApp abrir */
+    setTimeout(() => { location.href = url; b.textContent = "Quero o desenho com Jesus"; }, 700);
     return;
   }
   if (b.dataset.acao === "voltar"){ S.tela = "inicio"; salvar(); render(); window.scrollTo({top:0}); return; }
