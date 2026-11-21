@@ -66,6 +66,10 @@ h1 .jesus::before,h1 .jesus::after{content:"✨";font-size:.5em;vertical-align:m
 .celular{position:relative;background:#111;border-radius:30px;padding:8px;box-shadow:0 14px 30px rgba(0,0,0,.28)}
 .celular::before{content:"";position:absolute;top:13px;left:50%;transform:translateX(-50%);width:34%;height:9px;border-radius:9px;background:#111;z-index:2}
 .celular video{display:block;width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:23px;background:#0b1f3a}
+.capa-cel{width:min(250px,68%);justify-self:center}
+.titulo-cel{position:absolute;left:8px;right:8px;top:8px;padding:30px 8px 34px;border-radius:23px 23px 0 0;background:linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,0));display:grid;gap:2px;pointer-events:none}
+.titulo-cel b{font-family:"Baloo 2",var(--fonte-titulo);font-weight:800;font-size:clamp(28px,9vw,38px);line-height:1;color:#D7393B;-webkit-text-stroke:5px #fff;paint-order:stroke fill}
+.titulo-cel span{font-family:var(--fonte-titulo);font-weight:700;font-size:15px;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.6)}
 .celular .tag{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);white-space:nowrap;background:rgba(255,255,255,.94);color:var(--natal);font-weight:800;font-size:12px;padding:5px 10px;border-radius:999px}
 /* formulário */
 .cartao{background:var(--folha);border:2px solid var(--linha);border-radius:20px;padding:16px;display:grid;gap:14px;text-align:left}
@@ -139,23 +143,13 @@ const marca = `<div class="marca"><img src="../marca/logo.png" alt="Fábrica de 
 const diasNatal = () => { const h = new Date(); let n = new Date(h.getFullYear(), 11, 25); if (h > n) n = new Date(h.getFullYear()+1, 11, 25); return Math.ceil((n - h) / 86400000); };
 const dedicatoria = () => S.quem ? `Com amor, ${S.quem}${S.quemNome.trim() ? " " + S.quemNome.trim() : ""}` : "";
 
-/* capa com o nome no título; a imagem por baixo é o exemplo com Jesus */
+/* tela 2: celular passando os desenhos com Jesus, com o nome da criança no título */
 function capa(){
-  const n = nome(); const e = EXEMPLOS[S.genero === "menina" ? "menina" : "menino"];
-  const tam = n.length > 10 ? 25 : n.length > 7 ? 30 : 35;
-  const ded = esc(dedicatoria());
-  return `<div class="capa"><svg viewBox="0 0 240 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Prévia: ${n} e o Natal com Jesus">
-    <defs><clipPath id="cc"><rect width="240" height="300" rx="12"/></clipPath>
-    <linearGradient id="sombra" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity=".55"/><stop offset=".38" stop-color="#000" stop-opacity="0"/><stop offset=".78" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity="${ded ? ".55" : ".2"}"/></linearGradient></defs>
-    <g clip-path="url(#cc)"><rect width="240" height="300" fill="#7E1F1F"/>
-      <image href="${e.desenho}" x="0" y="0" width="240" height="300" preserveAspectRatio="xMidYMid slice"/>
-      <rect width="240" height="300" fill="url(#sombra)"/></g>
-    <text x="120" y="48" text-anchor="middle" font-family="'Baloo 2', Fredoka, sans-serif" font-weight="800" font-size="${tam}" fill="#D7393B" stroke="#fff" stroke-width="5" stroke-linejoin="round" paint-order="stroke">${n}</text>
-    <text x="120" y="72" text-anchor="middle" font-family="Fredoka, sans-serif" font-weight="700" font-size="15.5" fill="#fff" stroke="#7E1F1F" stroke-width="3.5" stroke-linejoin="round" paint-order="stroke">e o Natal com Jesus</text>
-    ${ded ? `<text x="18" y="270" font-family="Fredoka, sans-serif" font-weight="600" font-size="12.5" fill="#fff" stroke="#000" stroke-opacity=".35" stroke-width="2" paint-order="stroke">${ded} ❤</text>` : ""}
-    <g class="play"><circle cx="206" cy="252" r="19" fill="#fff" opacity=".92"/><path d="M199 241 L218 252 L199 263Z" fill="#B3262A"/></g>
-    <rect x="14" y="283" width="212" height="5" rx="2.5" fill="#fff" opacity=".45"/><rect x="14" y="283" width="58" height="5" rx="2.5" fill="#D7393B"/>
-  </svg></div>`;
+  const n = nome();
+  return `<div class="celular capa-cel">
+      <video src="exemplo-jesus.mp4" poster="exemplo-jesus.jpg" muted autoplay loop playsinline preload="metadata" aria-label="Trecho do desenho animado com Jesus"></video>
+      <div class="titulo-cel"><b>${n}</b><span>e o Natal com Jesus</span></div>
+    </div>`;
 }
 
 function antesDepois(){
@@ -175,7 +169,6 @@ function antesDepois(){
 
 function mensagemZap(){
   const L = ["Oi! Quero o desenho de Natal com Jesus ✨", `Pedido ${S.codigo}`, `Criança: ${S.nome.trim()} (${S.genero})`];
-  if (S.quem) L.push(`Presente de: ${S.quem}${S.quemNome.trim() ? " " + S.quemNome.trim() : ""}`);
   L.push("Já vou mandar a foto 📸");
   return L.join("\n");
 }
@@ -218,14 +211,10 @@ previa(){
   return `${marca}<section class="tela">
     <h2>O Natal com Jesus de <em>${nome()}</em> ✨</h2>
     ${capa()}
-    <p class="aviso-ex">Exemplo de capa. O seu desenho é feito com a foto ${dele()}.</p>
+    <p class="aviso-ex">Exemplo do desenho. O seu é feito com a foto ${dele()}.</p>
     <a class="btn zap" id="btnZap" href="${linkZap()}">Fazer o pedido no WhatsApp</a>
     <p class="mini" style="margin-top:-6px"><span class="preco">${CONFIG.preco}</span> no Pix · pronto em até 24h · se o rostinho não ficar parecido, a gente refaz</p>
     <div class="cartao">
-      <div><span class="rot">É presente de alguém? <span class="opcional">(sai na dedicatória)</span></span>
-        <div class="chips">${QUEM.map(q => `<button class="chip" data-quem="${q}" aria-pressed="${S.quem===q}">${q}</button>`).join("")}</div></div>
-      ${S.quem ? `<div><label class="rot" for="fQuem">Seu nome <span class="opcional">(opcional)</span></label>
-        <input class="campo" id="fQuem" maxlength="18" placeholder="Ex: Teresa" value="${esc(S.quemNome)}"></div>` : ""}
       <ol class="passos">
         <li>Mande uma foto ${dele()} no WhatsApp</li>
         <li>Pague <span class="preco">${CONFIG.preco}</span> no Pix</li>
