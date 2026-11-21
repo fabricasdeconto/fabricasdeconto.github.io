@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Desenho de Natal · Fábrica de Contos</title>
+<meta name="description" content="Seu filho vira um desenho animado de Natal, com o rostinho e o nome dele. Veja a prévia grátis no WhatsApp e só pague se gostar.">
+<meta name="color-scheme" content="only light">
+<meta name="theme-color" content="#7E1F1F">
+<link rel="icon" href="../marca/logo-compacto.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@800&family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap">
+
+<!-- Meta Pixel: Fábrica de Contos - Site (3650201718481567).
+     Funil curto de Natal: PageView + ViewContent (abriu), Lead (viu a prévia com o nome), Contact (foi para o WhatsApp). -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','3650201718481567');
+fbq('track','PageView');
+fbq('track','ViewContent',{content_name:'natal'});
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=3650201718481567&ev=PageView&noscript=1"></noscript>
+
+<style>
+/* Uma coluna estreita tipo app. Duas telas: (1) nome + menino/menina, (2) prévia com o nome e botão do WhatsApp. */
+:root{
+  --tinta:#1E4A37; --tinta-2:#4F6D60; --papel:#FBF6EE; --folha:#FFFFFF; --linha:#EADFD0;
+  --natal:#B3262A; --natal-escuro:#7E1F1F; --ouro:#F2B83B; --zap:#25B05A; --zap-escuro:#1B8B46;
+  --fonte-logo:"Baloo 2","Fredoka","Trebuchet MS",system-ui,sans-serif;
+  --fonte-titulo:"Fredoka","Baloo 2","Trebuchet MS",system-ui,sans-serif;
+  --fonte-texto:"Nunito","Segoe UI",system-ui,-apple-system,sans-serif;
+  color-scheme:only light;
+}
+*{box-sizing:border-box}
+html{background:var(--papel)}
+body{margin:0;background:var(--papel);color:var(--tinta);font-family:var(--fonte-texto);font-size:16px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:480px;margin:0 auto;padding-block:16px 48px}
+h1,h2{font-family:var(--fonte-titulo);line-height:1.12;text-wrap:balance;margin:0}
+h1{font-size:clamp(28px,7.4vw,38px);font-weight:700}
+h2{font-size:clamp(23px,6vw,29px);font-weight:600}
+p{margin:0}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--ouro);outline-offset:2px;border-radius:12px}
+.marca{display:flex;justify-content:center;padding-bottom:8px}
+.marca img{height:70px;width:auto;display:block}
+.tela{display:grid;gap:16px;text-align:center;animation:entra .35s ease both}
+@keyframes entra{from{opacity:.001;transform:translateY(8px)}to{opacity:1;transform:none}}
+.selo{justify-self:center;display:inline-flex;gap:6px;align-items:center;background:var(--natal);color:#fff;font-weight:800;font-size:13px;letter-spacing:.5px;text-transform:uppercase;padding:7px 14px;border-radius:999px}
+h1 em{font-style:normal;color:var(--natal)}
+.sub{color:var(--tinta-2);font-size:17px}
+.vitrine{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);gap:10px;align-items:center;background:#fff;border-radius:22px;padding:10px;box-shadow:0 10px 26px rgba(126,31,31,.12)}
+.vitrine img{display:block;width:100%;height:auto;border-radius:14px}
+.celular{position:relative;background:#1d1414;border-radius:24px;padding:7px}
+.celular video{display:block;width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:18px;background:#000}
+.celular span{position:absolute;left:13px;top:14px;background:var(--natal);color:#fff;font-weight:800;font-size:10px;padding:3px 7px;border-radius:999px}
+.leg{font-size:12px;color:var(--tinta-2);margin-top:-8px}
+.cartao{background:var(--folha);border:2px solid var(--linha);border-radius:20px;padding:16px;display:grid;gap:14px;text-align:left}
+.rot{font-size:13px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;display:block;margin-bottom:6px}
+.campo{width:100%;font:inherit;font-size:18px;padding:14px 16px;border:2px solid var(--linha);border-radius:14px;background:#fff;color:var(--tinta)}
+.campo:focus{border-color:var(--tinta-2);outline:none}
+.duas{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opc{border:2px solid var(--linha);background:#fff;border-radius:14px;padding:13px 10px;cursor:pointer;font-weight:800;font-size:16px}
+.opc[aria-pressed="true"]{border-color:var(--natal);background:#FDEDEC;box-shadow:inset 0 0 0 1px var(--natal)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:2px solid var(--linha);background:#fff;border-radius:999px;padding:8px 13px;cursor:pointer;font-weight:700;font-size:15px}
+.chip[aria-pressed="true"]{border-color:var(--natal);background:#FDEDEC}
+.opcional{font-weight:600;text-transform:none;letter-spacing:0;color:var(--tinta-2)}
+.erro{color:#B3262A;font-weight:700;font-size:14px;min-height:1.2em;text-align:center}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;border:0;border-radius:16px;padding:17px 18px;
+  font-family:var(--fonte-titulo);font-size:19px;font-weight:600;cursor:pointer;text-decoration:none;
+  background:var(--natal);color:#fff;box-shadow:0 5px 0 var(--natal-escuro);transition:transform .08s,box-shadow .08s}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 var(--natal-escuro)}
+.btn.zap{background:var(--zap);box-shadow:0 5px 0 var(--zap-escuro)}
+.btn.zap:active{box-shadow:0 2px 0 var(--zap-escuro)}
+.mini{font-size:14px;color:var(--tinta-2)}
+.confia{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.confia div{background:#fff;border:1px solid var(--linha);border-radius:14px;padding:10px 6px;font-size:12.5px;font-weight:700;color:var(--tinta-2);line-height:1.3}
+.confia b{display:block;font-size:20px}
+/* Prévia */
+.capa{position:relative;width:min(300px,82%);justify-self:center;filter:drop-shadow(0 12px 18px rgba(126,31,31,.28))}
+.capa svg{display:block;width:100%;height:auto}
+.capa .play{transform-origin:206px 252px;animation:pulsa 1.6s ease-in-out infinite}
+@keyframes pulsa{50%{transform:scale(1.08)}}
+.aviso-ex{font-size:13px;color:var(--tinta-2);margin-top:-6px}
+.passos{display:grid;gap:8px;text-align:left;counter-reset:p}
+.passos li{list-style:none;display:grid;grid-template-columns:32px 1fr;gap:10px;align-items:center;background:#fff;border:1px solid var(--linha);border-radius:14px;padding:10px 12px;font-size:15px}
+.passos li::before{counter-increment:p;content:counter(p);display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--ouro);font-family:var(--fonte-titulo);font-weight:700}
+.passos{margin:0;padding:0}
+.preco{font-family:var(--fonte-titulo);font-weight:700;color:var(--natal)}
+.voltar{background:none;border:0;color:var(--tinta-2);font-weight:700;cursor:pointer;padding:6px;font-size:15px;text-decoration:underline;text-underline-offset:3px}
+.faq{display:grid;gap:8px;text-align:left;margin-top:8px}
+.faq details{background:#fff;border:1px solid var(--linha);border-radius:14px;padding:12px 14px}
+.faq summary{font-weight:800;cursor:pointer}
+.faq p{margin-top:6px;color:var(--tinta-2);font-size:15px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap" id="app" aria-live="polite"></div>
+
+<script>
+/* ============ CONFIGURAÇÃO ============ */
+const CONFIG = {
+  whatsapp: "5511968155528",   // número do atendimento (DDI 55 + DDD, só dígitos)
+  preco: "R$ 19,90"
+};
+/* ===================================== */
+
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const track = (ev, data, id) => { try { if (window.fbq) window.fbq("track", ev, data || {}, id ? {eventID:id} : undefined); } catch(e){} };
+const QUEM = ["Vovó","Vovô","Mamãe","Papai","Titia","Madrinha"];
+
+let S = {tela:"inicio", nome:"", genero:"", quem:""};
+try { const s = JSON.parse(localStorage.getItem("fc_natal")||"null"); if (s) S = Object.assign(S, s); } catch(e){}
+const salvar = () => { try { localStorage.setItem("fc_natal", JSON.stringify(S)); } catch(e){} };
+const dele = () => S.genero === "menina" ? "dela" : "dele";
+const marca = `<div class="marca"><img src="../marca/logo-compacto.png" alt="Fábrica de Contos" width="180" height="193"></div>`;
+
+/* capa com o nome da criança no título (imagem de exemplo por baixo) */
+function capa(){
+  const n = esc(S.nome || "Seu pequeno");
+  const g = S.genero === "menina" ? "menina" : "menino";
+  const tam = n.length > 10 ? 25 : n.length > 7 ? 30 : 35;
+  return `<div class="capa"><svg viewBox="0 0 240 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Prévia: ${n} e a Magia do Natal">
+    <defs><clipPath id="cc"><rect width="240" height="300" rx="12"/></clipPath>
+    <linearGradient id="sombra" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity=".55"/><stop offset=".38" stop-color="#000" stop-opacity="0"/></linearGradient></defs>
+    <g clip-path="url(#cc)"><rect width="240" height="300" fill="#7E1F1F"/>
+      <image href="capa-${g}.jpg" x="0" y="0" width="240" height="300" preserveAspectRatio="xMidYMid slice"/>
+      <rect width="240" height="300" fill="url(#sombra)"/></g>
+    <text x="120" y="48" text-anchor="middle" font-family="'Baloo 2', Fredoka, sans-serif" font-weight="800" font-size="${tam}" fill="#D7393B" stroke="#fff" stroke-width="5" stroke-linejoin="round" paint-order="stroke">${n}</text>
+    <text x="120" y="72" text-anchor="middle" font-family="Fredoka, sans-serif" font-weight="700" font-size="17" fill="#fff" stroke="#7E1F1F" stroke-width="3.5" stroke-linejoin="round" paint-order="stroke">e a Magia do Natal</text>
+    <g class="play"><circle cx="206" cy="252" r="19" fill="#fff" opacity=".92"/><path d="M199 241 L218 252 L199 263Z" fill="#B3262A"/></g>
+    <rect x="14" y="283" width="212" height="5" rx="2.5" fill="#fff" opacity=".45"/><rect x="14" y="283" width="58" height="5" rx="2.5" fill="#D7393B"/>
+  </svg></div>`;
+}
+
+function mensagemZap(){
+  const linhas = [
+    "Oi! Quero a prévia grátis do desenho de Natal 🎄",
+    `Criança: ${S.nome.trim()} (${S.genero})`,
+  ];
+  if (S.quem) linhas.push(`Presente de: ${S.quem}`);
+  linhas.push("Vou mandar a foto agora 📸");
+  return linhas.join("\n");
+}
+const linkZap = () => `https://api.whatsapp.com/send?phone=${CONFIG.whatsapp}&text=${encodeURIComponent(mensagemZap())}`;
+
+const TELAS = {
+inicio(){
+  return `${marca}<section class="tela">
+    <span class="selo">🎄 Especial de Natal</span>
+    <h1>Seu filho vira um <em>desenho animado de Natal</em></h1>
+    <p class="sub">Com o rostinho e o nome da criança, narrado e pronto para assistir na TV com a família. Veja a prévia grátis.</p>
+    <div class="cartao">
+      <div><label class="rot" for="fNome">Nome da criança</label>
+        <input class="campo" id="fNome" maxlength="20" autocomplete="off" enterkeyhint="done" placeholder="Ex: Alice, Miguel" value="${esc(S.nome)}"></div>
+      <div><span class="rot">É menino ou menina?</span>
+        <div class="duas">
+          <button class="opc" data-g="menino" aria-pressed="${S.genero==="menino"}">👦 Menino</button>
+          <button class="opc" data-g="menina" aria-pressed="${S.genero==="menina"}">👧 Menina</button>
+        </div></div>
+      <p class="erro" id="erro"></p>
+      <button class="btn" data-acao="previa">Ver a prévia grátis</button>
+    </div>
+    <div class="vitrine">
+      <img src="../marca/hero-foto.jpg" width="487" height="860" alt="Foto de um menino e o mesmo menino desenhado como personagem">
+      <div class="celular"><video src="../previa/hero-vertical.mp4" poster="../previa/hero-vertical.jpg" muted autoplay loop playsinline preload="metadata"></video><span>▶ VÍDEO</span></div>
+    </div>
+    <p class="leg">Exemplo de desenho. O seu é feito com a foto da sua criança.</p>
+    <div class="confia">
+      <div><b>🎁</b>Prévia grátis antes de pagar</div>
+      <div><b>📲</b>Chega no WhatsApp</div>
+      <div><b>⏱️</b>Pronto em até 24h</div>
+    </div>
+    <div class="faq">
+      <details><summary>O que eu recebo?</summary><p>Um desenho animado em vídeo, com a história de Natal narrada e a criança como personagem em todas as cenas. Chega no seu WhatsApp.</p></details>
+      <details><summary>Quanto custa?</summary><p>${CONFIG.preco}, no Pix. Você só paga depois de ver a prévia com o rostinho da criança.</p></details>
+      <details><summary>É um livro? Vem pelo correio?</summary><p>Não. É um vídeo digital: sem frete, dá para ver no celular, colocar na TV e mandar no grupo da família.</p></details>
+      <details><summary>E a foto da criança?</summary><p>Você manda no WhatsApp. Ela é usada só para fazer o desenho e apagada depois da entrega.</p></details>
+    </div>
+  </section>`;
+},
+
+previa(){
+  const n = esc(S.nome);
+  return `${marca}<section class="tela">
+    <h2>A prévia de <span style="color:var(--natal)">${n}</span> 🎄</h2>
+    ${capa()}
+    <p class="aviso-ex">Personagem de exemplo. No WhatsApp você recebe esta capa com o rostinho ${dele()}, grátis.</p>
+    <a class="btn zap" id="btnZap" href="${linkZap()}">Receber a prévia com a foto ${dele()}</a>
+    <p class="mini" style="margin-top:-6px">Sem compromisso: você só paga se gostar.</p>
+    <div class="cartao">
+      <ol class="passos">
+        <li>Mande uma foto ${dele()} no WhatsApp</li>
+        <li>Receba a capa com o rostinho ${dele()} em minutos, grátis</li>
+        <li>Gostou? Pague <span class="preco">${CONFIG.preco}</span> no Pix e receba o desenho completo em até 24h</li>
+      </ol>
+      <div><span class="rot">Quem vai dar o presente? <span class="opcional">(opcional)</span></span>
+        <div class="chips">${QUEM.map(q=>`<button class="chip" data-quem="${q}" aria-pressed="${S.quem===q}">${q}</button>`).join("")}</div></div>
+    </div>
+    <button class="voltar" data-acao="voltar">Trocar o nome</button>
+  </section>`;
+}
+};
+
+function render(){
+  document.getElementById("app").innerHTML = TELAS[S.tela]();
+  const f = document.getElementById("fNome");
+  if (f) f.addEventListener("input", () => { S.nome = f.value; salvar(); });
+}
+
+document.addEventListener("click", (ev) => {
+  const b = ev.target.closest("button, a"); if (!b) return;
+  if (b.dataset.g){ S.genero = b.dataset.g; salvar(); document.querySelectorAll("[data-g]").forEach(x=>x.setAttribute("aria-pressed", x===b)); return; }
+  if (b.dataset.quem){
+    S.quem = S.quem === b.dataset.quem ? "" : b.dataset.quem; salvar();
+    document.querySelectorAll("[data-quem]").forEach(x=>x.setAttribute("aria-pressed", x.dataset.quem===S.quem));
+    const z = document.getElementById("btnZap"); if (z) z.href = linkZap();
+    return;
+  }
+  if (b.dataset.acao === "previa"){
+    const nome = (document.getElementById("fNome")?.value || "").trim();
+    const erro = document.getElementById("erro");
+    if (nome.length < 2){ erro.textContent = "Escreva o nome da criança."; document.getElementById("fNome").focus(); return; }
+    if (!S.genero){ erro.textContent = "Escolha menino ou menina."; return; }
+    S.nome = nome.charAt(0).toUpperCase() + nome.slice(1); S.tela = "previa"; salvar(); render(); window.scrollTo({top:0});
+    track("Lead", {content_name:"natal"});
+    return;
+  }
+  if (b.dataset.acao === "voltar"){ S.tela = "inicio"; salvar(); render(); window.scrollTo({top:0}); return; }
+  if (b.id === "btnZap"){
+    /* No navegador do Instagram/Facebook o WhatsApp abre na hora e o evento se perde: segura 0,7 s para o Pixel enviar o Contact */
+    ev.preventDefault();
+    const url = linkZap();
+    track("Contact", {content_name:"natal", value:19.90, currency:"BRL"});
+    b.textContent = "Abrindo o WhatsApp...";
+    setTimeout(() => { location.href = url; }, 700);
+  }
+});
+
+document.addEventListener("keydown", (ev) => {
+  if (ev.key === "Enter" && ev.target.id === "fNome"){ ev.preventDefault(); ev.target.blur(); }
+});
+
+render();
+</script>
+</body>
+</html>
